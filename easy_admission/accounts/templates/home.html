@@ -1,13 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-    <h1>hello</h1>
-    
-</body>
-</html>
+
+ 
+
+{% block css %}
+   {% static 'css/home.css' %}
+{% endblock css %}
+   
+{% block content %}
+
+ <div class="containers">
+    <div class="banner-section">
+        <div class="contain">
+         <h1>“Every morning you have two choices: continue to sleep with your dreams, or wake up and chase them.”</h1>
+         <h1>WelCome <br> To <br> Islamic University</h1>
+
+
+         <div class="button-sections">
+            <button class="login-button"><a href="#">Login</a></button>
+            <button class="register-button"><a href="#">Register</a></button>
+         </div>
+ 
+        </div>
+ 
+    </div>
+
+ </div>
+
+
+{% endblock content %}
