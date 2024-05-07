@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+   {% static  'css/register.css' %}
+{% endblock css %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="form-group">
+        <form method="post" action="{% url 'register' %}">
+          {% csrf_token %}
+              <div class="row">
+                <div class="col-12 col-md-5 m-2 mb-4"><p>{{forms.username}}</p></div>
+                <div class="col-12  col-md-5 m-2"mb-4><p>{{forms.first_name}}</p></div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-md-5 m-2 my-4"><p>{{forms.last_name}}</p></div>
+                <div class="col-12  col-md-5 m-2  my-4"><p>{{forms.email}}</p></div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-md-5 m-2  my-4"><p>{{forms.password1}}</p></div>
+                <div class="col-12  col-md-5 m-2  my-4"><p>{{forms.password2}}</p></div>
+              </div>
+
+              <div >
+                <button type="submit" style="width: 150px;" class="btn btn-primary ">Submit</button>
+              </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}
+

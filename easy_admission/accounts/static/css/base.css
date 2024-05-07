@@ -48,6 +48,10 @@ a {
     .profile-section{
        padding-left: 10px;
     }
+
+    .content-wrapper{
+        margin-top: 170px;
+    }
     
 }
 
@@ -55,11 +59,19 @@ a {
     .profile-section{
        padding-left: 50px;
     }
+
+    .content-wrapper{
+        margin-top: 125;
+    }
 }
 
 @media only screen and (min-width: 700px) {
     .profile-section{
        padding-left: 75px;
+    }
+
+    .content-wrapper{
+        margin-top: 125;
     }
 }
 
@@ -68,11 +80,19 @@ a {
     .profile-section{
        padding-left: 100px;
     }
+
+    .content-wrapper{
+        margin-top: 125;
+    }
 }
 
 @media only screen and (min-width: 868px) {
     .profile-section{
        padding-left: 125px;
+    }
+
+    .content-wrapper{
+        margin-top: 125;
     }
 }
 
@@ -82,8 +102,8 @@ a {
        padding-left: 130px;
     }
 
-    .containers-div{
-        margin-bottom: 8%;
+        .content-wrapper{
+        margin-top: 125;
     }
 }
 
@@ -92,8 +112,8 @@ a {
        padding-left: 160px;
     }
 
-    .containers-div{
-        margin-bottom: 8%;
+        .content-wrapper{
+        margin-top: 125;
     }
 }
 
@@ -102,8 +122,8 @@ a {
         padding-left: 200px;
     }
 
-    .containers-div{
-        margin-bottom: 7%;
+    .content-wrapper{
+        margin-top: 125;
     }
 }
 
@@ -112,8 +132,8 @@ a {
         padding-left: 200px;
     }
 
-    .containers-div{
-        margin-bottom: 6%;
+    .content-wrapper{
+        margin-top: 125;
     }
 }
 
@@ -140,7 +160,7 @@ header::after{
 /* main section  start ended */
 
 .content-wrapper{
-    min-height: 300px;
+    min-height:  calc(100vh - 200px);
 }
 
 /* main section ended here */
@@ -162,4 +182,3 @@ header::after{
 
 
 /* footer ended  */
-

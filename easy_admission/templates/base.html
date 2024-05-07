@@ -27,7 +27,7 @@
 
             <nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
 
-                <a href="#" class="navbar-brand">
+                <a href="{% url 'home' %}" class="navbar-brand">
                     <img class="iu-logo ml-4 " src="{% static 'css/images/iulogo.png' %}" alt="University LOGO">
                 </a>
             
@@ -47,8 +47,8 @@
                     <div class="profile-section ms-lg-5 ">
 
                         <ul class=" shadow-none navbar-nav ms-auto pr-lg-5">
-                            <li class=" shadow-none nav-item pe-lg-5"><a class="nav-link active" href="#">Login</a></li>
-                            <li class="shadow-none nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="#">Register</a></li>
+                            <li class=" shadow-none nav-item pe-lg-5"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+                            <li class="shadow-none nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="{% url 'register' %}">Register</a></li>
                         </ul>
 
                      
@@ -64,7 +64,7 @@
 
 
     <main>
-        <div class="content-wrapper">
+        <div class="content-wrapper ">
             {% block content %}
 
             {% endblock content%}
