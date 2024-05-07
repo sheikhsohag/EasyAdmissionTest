@@ -3,26 +3,46 @@
 {% load static %}
 
 
+{% block css %}
+
+{% static 'css/login.css' %}
+
+{% endblock css %}
+
 
 {% block content %}
 
-<div class="login-container">
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="id_username">Username:</label>
-            <input type="text" id="id_username" name="username" value="" required>
+
+
+<div class="login-section">
+    <div class="login">
+        <div class="container container-m">
+            <div class="heads text-center col-9 bg-light">
+                <h2>Login</h2>
+            </div>
+    
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group m-3 col-9">
+                    <label for="id_username">Username:</label>
+                    <input class="form-control" type="text" id="id_username" name="username" value="" required>
+                </div>
+                <div class="form-group m-3 col-9">
+                    <label for="id_password">Password:</label>
+                    <input class="form-control" type="password" id="id_password" name="password" required>
+                </div>
+
+                <div class="login-buttom text-center text-end" >
+                    <button style="width: 150px; " class="btn btn-primary" type="submit" class="login">Login</button>
+                </div>
+            </form>
+            
         </div>
-        <div class="form-group">
-            <label for="id_password">Password:</label>
-            <input type="password" id="id_password" name="password" required>
-        </div>
-        <div class="login">
-            <button type="submit" class="login">Login</button>
-        </div>
-    </form>
+    </div>
+
 </div>
+
+
 
 
 {% endblock content %}

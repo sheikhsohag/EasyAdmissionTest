@@ -35,7 +35,7 @@
                     <span class="navbar-toggler-icon navbarSupportedContent-edit"></span>
                 </button>
             
-                <div class="collapse navbar-collapse navbar-div-item" style="text-align: center !important;" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse " style="text-align: center !important;" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto pr-lg-5">
                         <li class="nav-item pe-lg-5"><a class="nav-link active" href="#">Home</a></li>
                         <li class="nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="#">Home</a></li>
@@ -45,11 +45,35 @@
                     <!-- profile section start from here -->
 
                     <div class="profile-section ms-lg-5 ">
+                    
+                        {% if user.username %}
+                        
+                        <ul class=" shadow-none navbar-nav ms-auto pr-lg-5">
+                            <li class=" shadow-none nav-item mt-3 pe-lg-3"><a class="nav-link active" href="{% url 'login' %}">Profile</a></li>
+                            <li class="shadow-none nav-item  mt-3 pe-lg-3"><a class="nav-link active text-lg-center" href="{% url 'logout' %}">Logout</a></li>
+
+                           
+                                {% if profile_image %}
+                                    <li class="shadow-none nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="{% url 'logout' %}"><img class="image-size" src="{{ profile_image.url }}" alt="Profile Picture" title="{{ request.user.username }}"></a></li>
+                                {% else %}
+                                
+                                     <li class="shadow-none nav-item pe-lg-5"><a class="nav-link active text-lg-center  " href="#"><img class="rounded-circle" style="width: 50px; height:50px; "  src="{% static 'css/images/man_icon.jpg' %}" alt="profile img"> </a></li>
+                                {% endif %}
+                            
+                        </ul>
+
+                        {% else %}
+
 
                         <ul class=" shadow-none navbar-nav ms-auto pr-lg-5">
-                            <li class=" shadow-none nav-item pe-lg-5"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
-                            <li class="shadow-none nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="{% url 'register' %}">Register</a></li>
+                            <li class=" shadow-none nav-item mt-3 pe-lg-3"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+                            <li class="shadow-none nav-item mt-3 pe-lg-3"><a class="nav-link active text-lg-center" href="{% url 'register' %}">Register</a></li>
+                            <li class="shadow-none nav-item pe-lg-5"><a class="nav-link active text-lg-center  " href="#"><img class="rounded-circle" style="width: 50px; height:50px; "  src="{% static 'css/images/man_icon.jpg' %}" alt="profile img"> </a></li>
                         </ul>
+
+                        {% endif %}
+
+
 
                      
 
