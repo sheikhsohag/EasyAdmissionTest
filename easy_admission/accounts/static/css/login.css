@@ -6,7 +6,7 @@
  
  .heads h2{
      padding-top: 20px;
-     background-color: rgb(177, 177, 171);
+     
  }
  
  .login{
@@ -14,7 +14,7 @@
      width: 700px;
      height: 400px;
     
-     background-color: rgb(175, 175, 164);
+    
      min-height: 300px;
  
      position: absolute;
