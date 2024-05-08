@@ -4,9 +4,29 @@
     box-sizing: border-box;
 }
 
+.containers-div{
+    margin-bottom: 9%;
+}
+
 
 a {
     text-decoration: none !important;
+}
+
+
+.navbar-div-item li{
+
+    text-align: center;
+    /* background-color: gray; */
+    color: white;
+    margin: 5px;
+    border-radius: 5px;
+    /* box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.5); */
+}
+
+.navbar-div-item li:hover{
+    background-color: rgb(83, 83, 83);
+    box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
 .iu-logo{
@@ -25,6 +45,14 @@ a {
     padding-left: 100px;
 }
 
+.wrapping-sections{
+    width: 100%;
+    height: 125px;
+}
+
+.content-wrapper{
+    margin-top: 200px;
+}
 
 
 @media only screen and (min-width: 200px) {
@@ -132,6 +160,20 @@ a {
     }
 }
 
+header::after{
+    content: "";
+    display: block;
+    clear: both;
+    position: relative;
+}
+
+.containers-div::after{
+    content: "";
+    display: block;
+    clear: both;
+    position: relative;
+}
+
 
 
 
@@ -144,7 +186,7 @@ a {
 
 .content-wrapper{
     
-    min-height:  calc(100vh - 300px);
+    min-height:  calc(100vh - 100px);
 }
 
 /* main section ended here */
