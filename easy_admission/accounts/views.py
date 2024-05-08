@@ -6,7 +6,7 @@ from .forms import UserForm, UserLogInForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from . models import User_Account
+from . models import UserAccountTypes
 
 # Create your views here.
 
@@ -38,7 +38,7 @@ def RegisterViews(request):
             
             user = User.objects.get(username=username)
 
-            account_type_user = User_Account.objects.create(user=user, account_type=account_types)
+            account_type_user = UserAccountTypes.objects.create(user=user, account_type=account_types)
 
             account_type_user.save()
 
@@ -86,4 +86,19 @@ class LogoutViews(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('home')
+
+class Profile(View):
+    def get(self, request, *args, **kwargs):
+        return render(render, 'Profile.html', {'profile':profile})
+
+
+class ProfileUpdate(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'profileUpdate.html', {'profileform': profileform })
+    
+    def  post(self, request, *args, **kwargs):
+        pass
+
+
 

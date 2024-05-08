@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from . models import ProfileModel, TeacherProfileModel
 
 
 type_choices = [
@@ -60,3 +61,43 @@ class UserForm(UserCreationForm):
 class UserLogInForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100)
+
+
+class ProfileModelForm(forms.ModelForm):
+    class Meta:
+        model = ProfileModel
+        fields = '__all__'
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Full Name'}),
+            'father_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Father Name'}),
+            'mother_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Mother Name'}),
+            'village': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Village'}),
+            'subdistrict': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Subdistrict'}),
+            'district': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'District'}),
+            'ssc_board': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'SSC Board'}),
+            'ssc_year': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'SSC Passing Year'}),
+            'ssc_result': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'SSC Result'}),
+            'hsc_board': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'HSC Board'}),
+            'hsc_year': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'HSC Passing Year'}),
+            'hsc_result': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'HSC  Result'}),
+        }
+
+
+
+class TeacherProfileForm(forms.ModelForm):
+    class Meta:
+        model = TeacherProfileModel
+        fields = '__all__'
+        widgets = {
+            'cur_village': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Current Village'}),
+            'cur_subdistrict': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Current Subdistrict'}),
+            'cur_district': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Current District'}),
+            'full_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Full Name'}),
+            'village': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Village'}),
+            'subdistrict': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Subdistrict'}),
+            'district': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'District'}),
+            'phd': forms.CheckboxInput(attrs={'class': 'form-check-input', 'id': 'phd_checkbox'}),  # Assuming phd is a checkbox
+            'dept': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Department'}),
+            'title': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Title'}),
+        }
+

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{% block css %} {% endblock css %}">
 </head>
 <body>
+
+    
      
     <div class="container-fluid">
 
@@ -34,17 +36,39 @@
                 <button class="m-5 navbar-toggler btn bg-primary button-hover" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon navbarSupportedContent-edit"></span>
                 </button>
-            
+
+                <!-- student Teacher divider section start here -->
+
+                  {% if account_type == "student" %}
+                  
                 <div class="collapse navbar-collapse " style="text-align: center !important;" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto pr-lg-5">
                         <li class="nav-item pe-lg-5"><a class="nav-link active" href="#">Home</a></li>
                         <li class="nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="#">Home</a></li>
                         <li class="nav-item pe-lg-5"><a class="nav-link active" href="#">Home</a></li>
                     </ul>
+                
+                <div class="profile-section ms-lg-5 ">    
+
+                    {% else %}
+
+                    <div class="collapse navbar-collapse " style="text-align: center !important;" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto pr-lg-5">
+                            <li class="nav-item pe-lg-5"><a class="nav-link active" href="#">Teacher</a></li>
+                            <li class="nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="#">Home</a></li>
+                            <li class="nav-item pe-lg-5"><a class="nav-link active" href="#">Home</a></li>
+                        </ul>
+                    
+                    <div class="profile-section ms-lg-5 ">  
+
+
+                    {% endif %}
+
+
+                     <!-- student Teacher divider section ended here -->
 
                     <!-- profile section start from here -->
 
-                    <div class="profile-section ms-lg-5 ">
                     
                         {% if user.username %}
                         
@@ -89,12 +113,12 @@
 
     <main>
         <div class="wrapping-sections">
-            
+           
         </div>
         
         <div class="content-wrapper ">
             {% block content %}
-
+   
             {% endblock content%}
         </div>
     </main>
