@@ -52,6 +52,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'easy_admission.urls'
+# AUTH_USER_MODEL = 'accounts.User_Account'
 
 TEMPLATES = [
     {
@@ -126,6 +127,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
 
 
 # Default primary key field type

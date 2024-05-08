@@ -1,17 +1,25 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
 
+
+type_choices = [
+    ('student', 'Student'), 
+    ('teacher', 'Teacher')
+]
+
 username_validator = UnicodeUsernameValidator()
 
 class UserForm(UserCreationForm):
-    first_name = forms.CharField(max_length=12, min_length=4, required=True, help_text=None,
+    account_type = forms.ChoiceField(choices=type_choices, required=True, help_text=None,
+                                widget=forms.Select(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Select Account Type'}))
+
+    first_name = forms.CharField(max_length=19, required=True, help_text=None,
                                 widget=forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'First Name'}))
     
-    last_name = forms.CharField(max_length=12, min_length=4, required=True, help_text=None,
+    last_name = forms.CharField(max_length=19, required=True, help_text=None,
                                widget=(forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder':'Last Name'})))
     
     email = forms.EmailField(max_length=50, help_text=None,
@@ -35,8 +43,7 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
-
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'account_type')
     
     def clean(self):
         cleaned_data = super().clean()
@@ -47,12 +54,9 @@ class UserForm(UserCreationForm):
             self.add_error('password2', _("Passwords do not match."))
         
         return cleaned_data
+
+
     
 class UserLogInForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100)
-    class Meta:
-        fields = ['username', 'password']
-    
-
-

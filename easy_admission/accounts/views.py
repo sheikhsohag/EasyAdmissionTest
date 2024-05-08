@@ -6,6 +6,7 @@ from .forms import UserForm, UserLogInForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from . models import User_Account
 
 # Create your views here.
 
@@ -16,8 +17,33 @@ def RegisterViews(request):
     if request.method == "POST":
         forms = UserForm(request.POST)
         if forms.is_valid():
-            forms.save()
-            return redirect('home')  
+            
+            cleaned_data = forms.cleaned_data
+        
+            # Extract relevant data
+            username = cleaned_data['username']
+            first_name = cleaned_data['first_name']
+            last_name = cleaned_data['last_name']
+            email = cleaned_data['email']
+            password1 = cleaned_data['password1']
+            password2 = cleaned_data['password2']
+
+            account_types = cleaned_data['account_type']
+
+
+            user = User.objects.create_user(username=username, email=email, password=password1)
+            user.first_name = first_name
+            user.last_name = last_name
+            userIn = user.save()
+            
+            user = User.objects.get(username=username)
+
+            account_type_user = User_Account.objects.create(user=user, account_type=account_types)
+
+            account_type_user.save()
+
+
+            return redirect('login')  
     else:
         forms = UserForm()
     return render(request, 'register.html', {'forms': forms})
