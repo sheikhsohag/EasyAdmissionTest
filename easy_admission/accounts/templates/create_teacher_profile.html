@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/create_profile.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+
+
+<div class="container mb-5 ">
+    <div class="form-group">
+        <form method="post" action="{% url 'create_teacher_profile' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="personal-data">
+                <div class="row">
+                    <div class="col-12 col-md-5 m-2 mb-4"><p>{{profile.full_name}}</p></div>
+                    <div class="col-12  col-md-5 m-2"mb-4><p>{{profile.title}}</p></div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-12 col-md-5 m-2 my-4"><p>{{profile.dept}}</p></div>
+                    <div class="col-12  col-md-5 m-2  my-4"><p>PHD Holder: {{profile.phd}}</p></div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-12 col-md-5 m-2  my-4"><p>{{profile.village}}</p></div>
+                    <div class="col-12  col-md-5 m-2  my-4"><p>{{profile.subdistrict}}</p></div>
+                  </div>
+
+                      
+                  <div class="row">
+                    <div class="col-12 col-md-5 m-2  my-4"><p>{{profile.district}}</p></div>
+                    <div class="col-12  col-md-5 m-2  my-4"><p>{{profile.cur_village}}</p></div>
+                  </div>
+    
+                  <div class="row">
+                    
+                    <div class="col-12  col-md-5  m-2  my-4"><p>{{profile.cur_subdistrict}}</p></div>
+                    <div class="col-12  col-md-5   m-2  my-4"><p>{{profile.cur_district}}</p></div>
+                    
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 col-md-5 m-2 my-4"><p>{{profile.profile_image}}</p></div>
+                  </div>
+    
+            </div>
+
+          </div>
+
+            <div class="row justify-content-end me-5 ">
+                <div class="col-auto me-5">
+                    <div class="button-class text-justify-context me-5">
+                        <button type="submit" style="width: 150px;" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+

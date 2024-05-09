@@ -93,9 +93,15 @@ class ProfileForm(forms.ModelForm):
 
 
 class TeacherProfileForm(forms.ModelForm):
+    profile_image = forms.ImageField(label='Profile Image', required=False)
     class Meta:
         model = TeacherProfileModel
-        fields = '__all__'
+        exclude = ('user',) 
+
+        def __init__(self, *args, **kwargs):
+            super(TeacherProfileForm, self).__init__(*args, **kwargs)
+            self.fields['profile_image'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Select Image'})
+
         widgets = {
             'cur_village': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Current Village'}),
             'cur_subdistrict': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Current Subdistrict'}),

@@ -32,7 +32,7 @@ class ProfileModel(models.Model):
     hsc_result = models.FloatField()
 
     def __str__(self):
-        return f"user {self.user.username} profile for Teacher"
+        return f"user {self.user.username} profile for Student"
    
 
 

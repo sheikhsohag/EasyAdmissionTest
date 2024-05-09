@@ -15,7 +15,7 @@
 
 <div class="container mb-5 ">
     <div class="form-group">
-        <form method="post" action="{% url 'create_profile' %}">
+      <form method="post" action="{% url 'create_profile' %}" enctype="multipart/form-data">
           {% csrf_token %}
 
           <div class="row">
