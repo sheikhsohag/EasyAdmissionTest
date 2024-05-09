@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import UserAccountTypes, ProfileModel, TeacherProfileModel
+from .models import UserAccountTypes, ProfileModel, TeacherProfileModel, profileImage
 
 
 class User_accountAdmin(admin.ModelAdmin):
@@ -20,6 +20,14 @@ class TeacherProfileModelAdmin(admin.ModelAdmin):
     list_display = ['full_name', 'phd',]
 
 admin.site.register(TeacherProfileModel, TeacherProfileModelAdmin)
+
+
+
+
+class profileImageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_image',]
+
+admin.site.register(profileImage, profileImageAdmin)
 
 
 

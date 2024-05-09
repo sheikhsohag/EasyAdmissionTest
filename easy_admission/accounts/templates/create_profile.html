@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/create_profile.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+
+
+<div class="container mb-5 ">
+    <div class="form-group">
+        <form method="post" action="{% url 'create_profile' %}">
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="personal-data">
+                <div class="row">
+                    <div class="col-12 col-md-5 m-2 mb-4"><p>{{profile.full_name}}</p></div>
+                    <div class="col-12  col-md-5 m-2"mb-4><p>{{profile.father_name}}</p></div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-12 col-md-5 m-2 my-4"><p>{{profile.mother_name}}</p></div>
+                    <div class="col-12  col-md-5 m-2  my-4"><p>{{profile.village}}</p></div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-12 col-md-5 m-2  my-4"><p>{{profile.subdistrict}}</p></div>
+                    <div class="col-12  col-md-5 m-2  my-4"><p>{{profile.district}}</p></div>
+                  </div>
+    
+                  <div class="row">
+                    
+                    <div class="col-12  col-md-5  m-2  my-4"><p>{{profile.ssc_board}}</p></div>
+                    <div class="col-12  col-md-5   m-2  my-4"><p>{{profile.registration}}</p></div>
+                    
+                  </div>
+
+                  <div class="row">
+                    
+                    <div class="col-12  col-md-5  m-2  my-4"><p>{{profile.ssc_result}}</p></div>
+                    <div class="col-12  col-md-5   m-2  my-4"><p>{{profile.ssc_year}}</p></div>
+                    
+                  </div>
+
+                  
+                  <!-- hsc document  -->
+                  <div class="row">
+                    
+                    <div class="col-12  col-md-5  m-2  my-4"><p>{{profile.hsc_board}}</p></div>
+                    <div class="col-12  col-md-5  m-2  my-4"><p>{{profile.hsc_result}}</p></div>
+                    
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12  col-md-5   m-2  my-4"><p>{{profile.hsc_year}}</p></div>
+                    <div class="col-12  col-md-5   m-2  my-4"><p>{{profile.profile_image}}</p></div>
+                    
+                    
+                  </div>
+    
+            </div>
+
+          </div>
+
+            <div class="row justify-content-end me-5 ">
+                <div class="col-auto me-5">
+                    <div class="button-class text-justify-context me-5">
+                        <button type="submit" style="width: 150px;" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+

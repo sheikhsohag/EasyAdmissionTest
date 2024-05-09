@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
-from . models import ProfileModel, TeacherProfileModel
+from . models import ProfileModel, TeacherProfileModel, profileImage
 
 
 type_choices = [
@@ -63,24 +63,32 @@ class UserLogInForm(forms.Form):
     password = forms.CharField(max_length=100)
 
 
-class ProfileModelForm(forms.ModelForm):
+
+class ProfileForm(forms.ModelForm):
+    profile_image = forms.ImageField(label='Profile Image', required=False)
+
     class Meta:
         model = ProfileModel
-        fields = '__all__'
-        widgets = {
-            'full_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Full Name'}),
-            'father_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Father Name'}),
-            'mother_name': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Mother Name'}),
-            'village': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Village'}),
-            'subdistrict': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'Subdistrict'}),
-            'district': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'District'}),
-            'ssc_board': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'SSC Board'}),
-            'ssc_year': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'SSC Passing Year'}),
-            'ssc_result': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'SSC Result'}),
-            'hsc_board': forms.TextInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'HSC Board'}),
-            'hsc_year': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'HSC Passing Year'}),
-            'hsc_result': forms.NumberInput(attrs={'class': 'form-control py-3 border border-dark', 'placeholder': 'HSC  Result'}),
-        }
+        exclude = ('user',) 
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['profile_image'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Select Image'})
+        self.fields['full_name'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Full Name'})
+        self.fields['father_name'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Father Name'})
+        self.fields['mother_name'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Mother Name'})
+        self.fields['village'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Village'})
+        self.fields['subdistrict'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'Subdistrict'})
+        self.fields['district'].widget.attrs.update({'class': 'form-control py-2 border border-dark', 'placeholder': 'District'})
+        self.fields['ssc_board'].widget.attrs.update({'class': 'py-lg-2 form-control py-2 border border-dark', 'placeholder': 'SSC Board'})
+        self.fields['ssc_year'].widget.attrs.update({'class': 'py-lg-2 form-control py-2 border border-dark', 'placeholder': 'SSC Passing Year'})
+        self.fields['ssc_result'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'SSC Result'})
+        self.fields['hsc_board'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Board'})
+        self.fields['hsc_year'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Passing Year'})
+        self.fields['hsc_result'].widget.attrs.update({'class': ' px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Result'})
+        self.fields['registration'].widget.attrs.update({'class': ' px-lg-3 form-control py-2 border border-dark', 'placeholder': 'Registration Number'})
+
+
 
 
 

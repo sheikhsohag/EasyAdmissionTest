@@ -23,12 +23,19 @@ class ProfileModel(models.Model):
     village = models.CharField(max_length=50)
     subdistrict = models.CharField(max_length=40)
     district = models.CharField(max_length=50)
+    registration = models.CharField(max_length=30)
     ssc_board = models.CharField(max_length=40)
     ssc_year = models.IntegerField()
     ssc_result = models.FloatField()
     hsc_board = models.CharField(max_length=40)
     hsc_year = models.IntegerField()
     hsc_result = models.FloatField()
+
+    def __str__(self):
+        return f"user {self.user.username} profile for Teacher"
+   
+
+
 
 class TeacherProfileModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -42,6 +49,15 @@ class TeacherProfileModel(models.Model):
     phd = models.BooleanField()
     dept = models.CharField(max_length=200)
     title = models.CharField(max_length=50)
+    def __str__(self):
+        return f"user {self.user.username} profile for Teacher"
+    
+
+class profileImage(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    def __str__(self):
+        return f"user {self.user.username}  user id {self.user.id}"
 
 
 
