@@ -14,52 +14,82 @@
 
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
+
         <div class="col-md-3 border-right">
             {% if profile_photo %}
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{ profile_photo.profile_image.url }}"><span class="font-weight-bold">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+
+            
+            <div class="row mt-2">
+                
+                <div class="col-12 my-2 me-3 "><div class="button-div">
+                    <a class="btn btn-primary" href="#">Change Photo</a>
+                </div></div>
+            </div> 
+
             {% else %}
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+
+            <div class="row mt-2">
+                
+                <div class="col-12 my-2 me-3 "><div class="button-div">
+                    <a class="btn btn-primary" href="#">Update Profile Photo</a>
+                </div></div>
+            </div> 
              {% endif %}
 
         </div>
+
         <div class="col-md-7 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Page</h4>
                 </div>
+
                 <div class="row mt-2">
                     <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> Full Name: {{profile.full_name}} </p></div>
-                    <div class="col-md-6 ms-2 my-2 bg-light rounded shadow"><p>Father Name: {{profile.father_name}}</p></div>
+                    <div class="col-md-6 ms-2 my-2 bg-light rounded shadow"><p>Title: {{profile.title}}</p></div>
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> Mother Name: {{profile.mother_name}} </p></div>
-                    <div class="col-md-6 my-2 ms-2 bg-light rounded shadow"><p>Village: {{profile.village}}</p></div>
+                    
+                    {% if profile.phd %}
+                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> PHD Degree: Copleted </p></div>
+                    {% else %}
+                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> PHD Degree: None </p></div>
+                    {% endif %}
+                    <div class="col-md-6 my-2 ms-2 bg-light rounded shadow"><p>Dept: {{profile.dept}}</p></div>
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-md-5 my-2 me-3 bg-light rounded shadow"><p> Sub District: {{profile.subdistrict}} </p></div>
-                    <div class="col-md-6 my-2 ms-6 bg-light rounded shadow"><p>District: {{profile.district}}</p></div>
+                    <div class="col-md-5 my-2 me-3 bg-light rounded shadow"><p> Village: {{profile.village}} </p></div>
+                    <div class="col-md-6 my-2 ms-6 bg-light rounded shadow"><p>Sub District: {{profile.subdistrict}}</p></div>
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> SSC Board: {{profile.ssc_board}} </p></div>
-                    <div class="col-md-6 ms-2 my-2 bg-light rounded shadow"><p>SSC Passing Year: {{profile.ssc_year}}</p></div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> SSC Result: {{profile.ssc_result}} </p></div>
-                    <div class="col-md-6 ms-2 my-2 bg-light rounded shadow"><p>Registraion Number: {{profile.registration}}</p></div>
+                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> District: {{profile.district}} </p></div>
+                    <div class="col-md-6 my-2 me-3 bg-light rounded shadow"><p>Current Village: {{profile.cur_village}} </p></div>
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> HSC Board: {{profile.hsc_board}} </p></div>
-                    <div class="col-md-6 ms-2 my-2 bg-light rounded shadow"><p>HSC Passing Year: {{profile.hsc_year}}</p></div>
-                </div>
+                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> Curent Sub District: {{profile.subdistrict}} </p></div>
+                    <div class="col-md-6 my-2 me-3 bg-light rounded shadow"><p>Current District: {{profile.cur_district}} </p></div>
+                </div>      
+                
                 <div class="row mt-2">
-                    <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> HSC Result: {{profile.hsc_result}} </p></div>
-                   
-                </div>
-               
+                    <div class="col-md-5 me-3 my-2 "></div>
+                    <div class="col-md-6 my-2 me-3 "></div>
+                </div> 
+
+                <div class="row mt-2">
+                    <div class="col-md-5 me-3 my-2 "></p></div>
+                    <div class="col-md-6 my-2 me-3 "><div class="button-div">
+                        <a class="btn btn-primary" href="#">Update Profile</a>
+                        <a class="btn btn-primary"  href="#">Delete Account</a>
+                    </div></div>
+                </div> 
+
+                
         </div>
 
 

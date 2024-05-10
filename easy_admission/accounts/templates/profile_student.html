@@ -17,8 +17,23 @@
         <div class="col-md-3 border-right">
             {% if profile_photo %}
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{ profile_photo.profile_image.url }}"><span class="font-weight-bold">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+
+            <div class="row mt-2">
+                
+                <div class="col-12 my-2 me-3 "><div class="button-div">
+                    <a class="btn btn-primary" href="#">Update Profile Photo</a>
+                </div></div>
+            </div> 
+
             {% else %}
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+
+            <div class="row mt-2">
+                
+                <div class="col-12 my-2 me-3 "><div class="button-div">
+                    <a class="btn btn-primary" href="#">Update Profile Photo</a>
+                </div></div>
+            </div> 
              {% endif %}
 
         </div>
@@ -59,6 +74,19 @@
                     <div class="col-md-5 me-3 my-2 bg-light rounded shadow"><p> HSC Result: {{profile.hsc_result}} </p></div>
                    
                 </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-5 me-3 my-2 "></div>
+                    <div class="col-md-6 my-2 me-3 "></div>
+                </div> 
+
+                <div class="row mt-2">
+                    <div class="col-md-5 me-3 my-2 "></p></div>
+                    <div class="col-md-6 my-2 me-3 "><div class="button-div">
+                        <a class="btn btn-primary" href="#">Update Profile</a>
+                        <a class="btn btn-primary"  href="#">Delete Account</a>
+                    </div></div>
+                </div> 
                
         </div>
 

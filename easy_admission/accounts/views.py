@@ -110,7 +110,10 @@ class Profile(View):
          
         profile_photo = profileImage.objects.filter(user = profile.user).first()      
         print(profile, profile_photo, acc_type)
-        return render(request, 'profile_student.html', {'profile':profile, 'profile_photo':profile_photo, 'user': users})
+        if acc_type.account_type == 'student':
+            return render(request, 'profile_student.html', {'profile':profile, 'profile_photo':profile_photo, 'user': users})
+        else:
+            return render(request, 'profile_teacher.html', {'profile':profile, 'profile_photo':profile_photo, 'user': users})
 
 
 class CreateProfile(View):
