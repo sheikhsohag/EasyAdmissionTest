@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import LoginViews, LogoutViews, Profile, CreateProfile, TeacherProfile,StudentProfileUpdate, UserDeleteView
+from .views import LoginViews, LogoutViews, Profile, CreateProfile, TeacherProfile,StudentProfileUpdate, UserDeleteView, TeacherProfileUpdate
 
 
 urlpatterns = [
@@ -19,6 +19,7 @@ urlpatterns = [
     path('user/delete/<int:pk>/', UserDeleteView.as_view(), name='user_delete'),
 
     path('Teacher/profile/', TeacherProfile.as_view(), name='create_teacher_profile'),
+    path('teacher/profile/update/<int:pk>/', TeacherProfileUpdate.as_view(), name='teacher_profile_update'),
       
     # path('update/<int:pk>/', UserView.as_view(), name='update_user'),
     # path('delete/<int:pk>/', UserView.as_view(), name='delete_user'),

@@ -84,8 +84,8 @@
                 <div class="row mt-2">
                     <div class="col-md-5 me-3 my-2 "></p></div>
                     <div class="col-md-6 my-2 me-3 "><div class="button-div">
-                        <a class="btn btn-primary" href="#">Update Profile</a>
-                        <a class="btn btn-primary"  href="#">Delete Account</a>
+                        <a class="btn btn-primary" href="{% url 'teacher_profile_update' request.user.id %}">Update Profile</a>
+                        <a class="btn btn-primary"  href="{% url 'user_delete' request.user.id %}">Delete Account</a>
                     </div></div>
                 </div> 
 

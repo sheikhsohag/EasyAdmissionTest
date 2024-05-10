@@ -14,6 +14,8 @@ from django.http import HttpResponseNotFound
 def home(request):
     return render(request, 'home.html')
 
+# home page views end here.......................................................
+
 def RegisterViews(request):
     if request.method == "POST":
         forms = UserForm(request.POST)
@@ -50,6 +52,8 @@ def RegisterViews(request):
     return render(request, 'register.html', {'forms': forms})
 
 
+# user registration ended here basicaly all kinds of user created here..
+
 
 class LoginViews(View):
    
@@ -81,7 +85,7 @@ class LoginViews(View):
         else:
             return redirect('login')
 
-
+# user Lonin  ended here basicaly all kinds of user login here..
 
 class LogoutViews(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
@@ -364,6 +368,75 @@ class StudentProfileUpdate(View):
 
 
         return redirect('profile', pk=request.user.id)
+
+
+
+
+class TeacherProfileUpdate(View):
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        user = User.objects.get(pk=pk)
+        profile_data = TeacherProfileModel.objects.filter(user=user).first()
+        profile = TeacherProfileForm()
+        profile_photo = profileImage.objects.filter(user=user).first()
+       
+        if not profile_data:
+            return render(request, 'create_profile.html', {'profile':profile})
+        else:
+             return render(request, 'teacher_profile_update.html', {'profile':profile, 'profile_info':profile_data, 'profile_photo':profile_photo})
+
+
+    def post(self, request, *args, **kwargs):
+        # Get the form data
+        pk = kwargs.get('pk')
+        print("pk==============", pk)
+        full_name = request.POST.get('full_name')
+        title = request.POST.get('title')
+        phd = request.POST.get('phd')
+        dept = request.POST.get('dept')
+        village = request.POST.get('village')
+        subdistrict = request.POST.get('subdistrict')  
+        district = request.POST.get('district')
+        cur_village = request.POST.get('cur_village')
+        cur_subdistrict = request.POST.get('cur_subdistrict')
+        cur_district = request.POST.get('cur_district')
+
+      
+        user = User.objects.get(pk=pk)
+        teacher = TeacherProfileModel.objects.filter(user=user).first()
+
+        image = request.FILES.get('image')
+
+        
+
+        if teacher:
+            teacher.full_name = full_name
+            teacher.title = title
+            teacher.phd = phd
+            teacher.dept = dept
+            teacher.village = village
+            teacher.subdistrict = subdistrict
+            teacher.district = district
+
+            teacher.cur_village = cur_village
+            teacher.cur_subdistrict = cur_subdistrict
+            teacher.cur_district = cur_district
+           
+            teacher.save()
+        
+       
+        if image: 
+            profile_photo, created = profileImage.objects.get_or_create(user=user)
+            profile_photo.profile_image = image  
+            profile_photo.save()
+
+
+
+
+        return redirect('profile', pk=request.user.id)
+
+
+
 
 
 
