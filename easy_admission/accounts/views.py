@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . models import UserAccountTypes, ProfileModel, TeacherProfileModel, profileImage
+from django.http import HttpResponseNotFound
 
 # Create your views here.
 
@@ -100,7 +101,7 @@ class Profile(View):
 
 
        
-        print("==========================", profile, pk, users.username, acc_type.account_type)
+       
 
         if not profile:
             if acc_type.account_type=="student":
@@ -109,7 +110,7 @@ class Profile(View):
                 return redirect('create_teacher_profile')
          
         profile_photo = profileImage.objects.filter(user = profile.user).first()      
-        print(profile, profile_photo, acc_type)
+        
         if acc_type.account_type == 'student':
             return render(request, 'profile_student.html', {'profile':profile, 'profile_photo':profile_photo, 'user': users})
         else:
@@ -118,16 +119,30 @@ class Profile(View):
 
 class CreateProfile(View):
     def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        user = User.objects.filter(pk=pk).first()
+        profile_data = ProfileModel.objects.filter(user=user).first()
         profile = ProfileForm()
-        return render(request, 'create_profile.html', {'profile':profile})
+        profile_photo = profileImage.objects.filter(user=user).first()
+
+       
+        if not profile_data:
+            return render(request, 'create_profile.html', {'profile':profile})
+        else:
+             return render(request, 'student_profile_update.html', {'profile':profile, 'profile_info':profile_data, 'profile_photo':profile_photo})
+
 
     def post(self, request, *args, **kwargs):
+     
         if request.method == 'POST':
+            
             form = ProfileForm(request.POST, request.FILES)
+            print(form)
             if form.is_valid():
+               
                 profile = ProfileModel.objects.filter(user=request.user).first()
                 profile_imgs = profileImage.objects.filter(user=request.user).first()
-                print("profile==============================")
+                
                 if profile:
                     profile.full_name = form.cleaned_data['full_name']
                     profile.father_name = form.cleaned_data['father_name']
@@ -163,7 +178,7 @@ class CreateProfile(View):
 
                     
 
-                    print("imag ============link==========", profile_img)
+                 
 
                     profile = ProfileModel.objects.create(
                         full_name=full_name,
@@ -210,7 +225,9 @@ class TeacherProfile(View):
         return render(request, 'create_teacher_profile.html', {'profile':profile})
 
     def post(self, request, *args, **kwargs):
+       
         if request.method == 'POST':
+         
             form = TeacherProfileForm(request.POST, request.FILES)
             if form.is_valid():
                 profile =TeacherProfileModel.objects.filter(user=request.user).first()
@@ -280,6 +297,86 @@ class TeacherProfile(View):
             else:
                 # why form invalid this condition set later insha allah
                 pass
+
+
+
+class StudentProfileUpdate(View):
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        user = User.objects.get(pk=pk)
+        profile_data = ProfileModel.objects.filter(user=user).first()
+        profile = ProfileForm()
+        profile_photo = profileImage.objects.filter(user=user).first()
+       
+        if not profile_data:
+            return render(request, 'create_profile.html', {'profile':profile})
+        else:
+             return render(request, 'student_profile_update.html', {'profile':profile, 'profile_info':profile_data, 'profile_photo':profile_photo})
+
+
+    def post(self, request, *args, **kwargs):
+        # Get the form data
+        pk = kwargs.get('pk')
+        print("pk==============", pk)
+        full_name = request.POST.get('full_name')
+        father_name = request.POST.get('father_name')
+        mother_name = request.POST.get('mother_name')
+        village = request.POST.get('village')
+        subdistrict = request.POST.get('subdistrict')  
+        district = request.POST.get('district')
+        registration = request.POST.get('registration')
+        ssc_year = request.POST.get('ssc_year')
+        ssc_result = request.POST.get('ssc_result')
+        ssc_board = request.POST.get('ssc_board')
+        hsc_year = request.POST.get('hsc_year')
+        hsc_result = request.POST.get('hsc_result')
+        hsc_board = request.POST.get('hsc_board')
+        user = User.objects.get(pk=pk)
+        student = ProfileModel.objects.filter(user=user).first()
+
+        image = request.FILES.get('image')
+
+        print(image,"-----------==========")
+
+        if student:
+            student.full_name = full_name
+            student.father_name = father_name
+            student.mother_name = mother_name
+            student.village = village
+            student.subdistrict = subdistrict
+            student.district = district
+            student.registration = registration
+            student.ssc_year = ssc_year
+            student.ssc_result = ssc_result
+            student.ssc_board = ssc_board
+            student.hsc_year = hsc_year
+            student.hsc_result = hsc_result
+            student.hsc_board = hsc_board
+            student.save()
         
+       
+        if image: 
+            profile_photo, created = profileImage.objects.get_or_create(user=user)
+            profile_photo.profile_image = image  
+            profile_photo.save()
 
 
+
+
+        return redirect('profile', pk=request.user.id)
+
+
+
+class UserDeleteView(View):
+    def get(self, request, pk):
+
+        user = User.objects.get(pk=pk)
+        if request.user.id == pk:
+             user.delete()
+        return redirect('home')
+
+
+
+
+
+                

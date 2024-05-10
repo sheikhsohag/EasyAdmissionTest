@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/create_profile.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+
+
+<div class="container-xl px-4 mt-4">
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+               
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    {% if profile_photo %}
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{ profile_photo.profile_image.url }}" alt="{{ profile_photo.profile_image }}"><span class="font-weight-bold">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+        
+
+        
+                    {% else %}
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+        
+                     {% endif %}
+                   
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header text-center ">Account Details</div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'student_profile_update' request.user.id %}" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        <!-- Account details fields-->
+                       
+                        <div class="form-group my-3">
+                            <label for="id_full_name">Full Name: </label>
+                            <input type="text" class="form-control" id="id_full_name" name="full_name" required value={{profile_info.full_name}}>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="id_father_name">Father Name:</label>
+                            <input type="text" class="form-control" id="id_father_name" name="father_name" required  value={{profile_info.father_name}}>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="id_mother_name">Mother Name:</label>
+                            <input type="text" class="form-control" id="id_mother_name" name="mother_name" required  value={{profile_info.mother_name}}>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="id_village">Village:</label>
+                            <input type="text" class="form-control" id="id_village" name="village" required  value={{profile_info.village}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_subdistrict">Sub District:</label>
+                            <input type="text" class="form-control" id="id_subdistrict" name="subdistrict" required  value={{profile_info.subdistrict}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_district">District:</label>
+                            <input type="text" class="form-control" id="id_district" name="district" required  value={{profile_info.district}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_registration">Registraion:</label>
+                            <input type="text" class="form-control" id="id_registration" name="registration" required  value={{profile_info.registration}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_ssc_year">SSC Passing Year:</label>
+                            <input type="text" class="form-control" id="id_ssc_year" name="ssc_year" required  value={{profile_info.ssc_year}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_ssc_result">SSC Result:</label>
+                            <input type="text" class="form-control" id="id_ssc_result" name="ssc_result" required  value={{profile_info.ssc_result}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_ssc_board">SSC Board:</label>
+                            <input type="text" class="form-control" id="id_ssc_board" name="ssc_board" required  value={{profile_info.ssc_board}}>
+                        </div>
+
+                       
+
+                        <div class="form-group my-3">
+                            <label for="id_hsc_year">HSC Passing Year:</label>
+                            <input type="text" class="form-control" id="id_hsc_year" name="hsc_year" required  value={{profile_info.hsc_year}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_hsc_result">HSC Result:</label>
+                            <input type="text" class="form-control" id="id_hsc_result" name="hsc_result" required  value={{profile_info.hsc_result}}>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="id_hsc_board">HSC Board:</label>
+                            <input type="text" class="form-control" id="id_hsc_board" name="hsc_board" required  value={{profile_info.hsc_board}}>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_image">Image:</label>
+                            <input type="file" class="form-control" id="id_image" name="image" value={{object.image}}>
+                        </div>
+
+
+                        <!-- Save changes button-->
+                        <button class="btn btn-primary my-3" type="submit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
