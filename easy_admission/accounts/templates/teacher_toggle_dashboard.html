@@ -7,7 +7,7 @@
 
 {% block css %}
 
-{% static 'css/toggle_dashboard.css' %}
+{% static 'css/teacher_toggle_dashboard.css' %}
 
 {% endblock css %}
 
@@ -17,12 +17,18 @@
         <div class="row">
 
             <!-- navigation area start from here -->
-            <div class="col-12 col-md-2 navi-class">
+            <div class="col-12 col-md-3 navi-class">
                  <ul class="nav d-block nav-pills">
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#application">D-Unit Application </a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="nav-link"  href="#Prospectus">D-Unit Prospectus</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="nav-link"  href="#Notces">D-Unit Notices</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="nav-link"  href="#admit-card">Admit Card</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link active"  href="#application">Create Application Tarms&condition</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Prospectus">Create Prospectus</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Notces">Create Notices</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Make Result</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Result</a></li>
+
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Merit Position</a></li>
+
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Give Student Subject</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Subject Status</a></li>
                  </ul>
             </div>
 
@@ -33,14 +39,102 @@
             <div class="col-12 col-md-7 container-section">
 
                 <div class="tab-content">
+                      
+                    <!-- Application condition create start from here  -->
                     <div id="application" class="tab-pane active">
-                        <p>1, Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p>
+                        <div class="container">
+                            <h3 class="text-center bg-primary text-white p-2 rounded">Make Application Terms & Condition</h3>
+
+                            <form action="{% url 'application_condition' %}" method="post">
+                                {% csrf_token %}
+                                <div class="container">
+                                    <div class="row m-3">
+                                        <label for="UnitName">Select Unit Name</label>
+
+                                        <select id="UnitName" class="form-control " name="UnitName" placeholder="Unit Select" required>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>    
+                                        </select>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <input type="text" id="Taka" class="form-control" name="Taka" placeholder="Application Free"  required>
+                                    </div>
+
+                                    
+                                    <div class="row m-3">
+                                        <small>First Date</small>
+                                        <input type="date" id="firstdate" class="form-control" name="firstdate" placeholder="First Date"  required>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <small>Last Date</small>
+                                        <input type="date" id="lastdate" class="form-control" name="lastdate" placeholder="Last Date"  required>
+                                    </div>
+
+                                    
+                                    <div class="row m-3">
+                                        <input type="text" id="totalsit" class="form-control" name="totalsit" placeholder="Total Sit"  required>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <input type="text" id="sci_sit" class="form-control" name="sci_sit" placeholder="Number of sit For Science "  required>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <input type="text" id="arts_sit" class="form-control" name="arts_sit" placeholder="Number of sit For Arts "  required>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <input type="text" id="com_sit" class="form-control" name="com_sit" placeholder="Number of sit For commerce "  required>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <input type="text" id="tec_adu_sit" class="form-control" name="tec_adu_sit" placeholder="Number of sit For Technical education"  required>
+                                    </div>
+
+                                    
+                                    <div class="row m-3">
+                                        <textarea type="text" id="sci_qua" class="form-control" name="sci_qua" placeholder="Qualitication for Science"  required></textarea>
+                                    </div>
+
+                                    <div class="row m-3">
+                                        <textarea type="text" id="arts_qua" class="form-control" name="arts_qua" placeholder="Qualitication for Arts"  required></textarea>
+                                    </div>
+
+                                    <div class="row m-3 ">
+                                        <textarea type="text" id="com_qua"class="form-control" name="com_qua" placeholder="Qualitication for commerce"  required></textarea>
+                                    </div>
+
+                                    <div class="row m-3 ">
+                                        <textarea type="text" id="tec_qua"class="form-control" name="tec_qua" placeholder="Qualitication for Technical education"  required></textarea>
+                                    </div>
+
+                                </div>
+                               
+                                 <div class="row mb-5">
+                                    <div class="col text-end me-5">
+                                        <button class="btn btn-primary px-5" type="reset">Reset</button>
+                                        <button class="btn btn-primary px-5" type="submit">Submit</button>
+                                       
+                                    </div>
+
+                                 </div>
+
+                            </form>
+                        </div>
                     </div>
+
+                    <!-- Application condition create ended from here  -->
 
                     
                     <div id="Prospectus" class="tab-pane fade"><p>2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
 
-                    <div id="Notces" class="tab-pane fade"><p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
+                    <div id="Notces" class="tab-pane fade">
+                        <p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p>
+                    </div>
 
                     <div id="admit-card" class="tab-pane fade"><p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
 
@@ -50,13 +144,6 @@
                 
             </div>
              <!-- container information area  ended from here -->
-
-
-             <!-- notification are ended from here  -->
-             <div class="col-12 col-md-3">
-
-             </div>
-            <!-- notification are ended from here  -->
         </div>
     </div>
 {% endblock content %}
