@@ -449,6 +449,15 @@ class UserDeleteView(View):
         return redirect('home')
 
 
+class TeacherDashboardView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'teacher_toggle_dashboard.html')
+    
+class StudentDashboardView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'student_toggle_dashboard.html')
+
+
 
 
 

@@ -1,0 +1,64 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/toggle_dashboard.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- navigation area start from here -->
+            <div class="col-12 col-md-2 navi-class">
+                 <ul class="nav d-block nav-pills">
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#application">D-Unit Application </a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="nav-link"  href="#Prospectus">D-Unit Prospectus</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="nav-link"  href="#Notces">D-Unit Notices</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="nav-link"  href="#admit-card">Admit Card</a></li>
+                 </ul>
+            </div>
+
+            <!-- navigatin area ended from here  -->
+
+
+            <!-- container information area start   -->
+            <div class="col-12 col-md-7 container-section">
+
+                <div class="tab-content">
+                    <div id="application" class="tab-pane active">
+                        <p>1, Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p>
+                    </div>
+
+                    
+                    <div id="Prospectus" class="tab-pane fade"><p>2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
+
+                    <div id="Notces" class="tab-pane fade"><p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
+
+                    <div id="admit-card" class="tab-pane fade"><p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
+
+                </div>
+
+                
+                
+            </div>
+             <!-- container information area  ended from here -->
+
+
+             <!-- notification are ended from here  -->
+             <div class="col-12 col-md-3">
+
+             </div>
+            <!-- notification are ended from here  -->
+        </div>
+    </div>
+{% endblock content %}
+
+
