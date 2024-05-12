@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from . models import ApplicatinCondition
+from . models import ApplicatinCondition, Prospectus, Notices
 
 # Create your views here.
 
@@ -44,6 +44,40 @@ class ApplicationCondition(View):
             )
 
             application.save()
+
+        return redirect('teacherroom', pk=request.user.id)
+
+class ProspectusView(View):
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            pdf = request.FILES['pdf']
+            unit = request.POST.get('UnitName')
+            users = request.user
+
+            pdfinstance, created = Prospectus.objects.get_or_create(
+                    user=users,
+                    pdf_file = pdf,
+                    unit=unit
+            )
+
+            pdfinstance.save()
+
+        return redirect('teacherroom', pk=request.user.id)
+
+class NoticesView(View):
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            notice = request.POST.get('notice')
+            unit = request.POST.get('UnitName')
+            users = request.user
+
+            noticeinstance, created = Notices.objects.get_or_create(
+                    user=users,
+                    notice = notice,
+                    unit=unit
+            )
+
+            noticeinstance.save()
 
         return redirect('teacherroom', pk=request.user.id)
 

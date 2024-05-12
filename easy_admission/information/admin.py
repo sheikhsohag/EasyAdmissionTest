@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ApplicatinCondition,Prospectus, ResultSheet, GotSubject, Admitcard, Transactions
+from .models import ApplicatinCondition,Prospectus, ResultSheet, GotSubject, Admitcard, Transactions, Notices
 
 # Register your models here.
 
@@ -22,7 +22,10 @@ class AdmitCardAdmin(admin.ModelAdmin):
 
 class TransactionsAdmin(admin.ModelAdmin):
     list_display = ('user', 'transection_id')
+class NoticesAdmin(admin.ModelAdmin):
+    list_display = ('user', 'unit')
 
+admin.site.register(Notices, NoticesAdmin)
 
 
 

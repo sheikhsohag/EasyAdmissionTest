@@ -20,8 +20,8 @@
             <div class="col-12 col-md-3 navi-class">
                  <ul class="nav d-block nav-pills">
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link active"  href="#application">Create Application Tarms&condition</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Prospectus">Create Prospectus</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Notces">Create Notices</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Prospectus">Upload Prospectus</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Notces">Make Notices</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Make Result</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Result</a></li>
 
@@ -45,7 +45,7 @@
                         <div class="container">
                             <h3 class="text-center bg-primary text-white p-2 rounded">Make Application Terms & Condition</h3>
 
-                            <form action="{% url 'application_condition' %}" method="post">
+                            <form action="{% url 'application_condition' %}" method="post" >
                                 {% csrf_token %}
                                 <div class="container">
                                     <div class="row m-3">
@@ -130,10 +130,83 @@
                     <!-- Application condition create ended from here  -->
 
                     
-                    <div id="Prospectus" class="tab-pane fade"><p>2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
+                    <!-- Prospectus  section start from here -->
+                    <div id="Prospectus" class="tab-pane fade">
+                        <div class="container">
+                            <div class="row">
+                                <h3 class="Title text-center bg-primary text-white py-2 rounded">
+                                    Upload Prospectus Pdf </h3>
+
+                                    <div class="forms-container">
+                                        <form  method="post" action="{% url 'prospectus' %}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="container">
+                                                <div class="row my-4">
+                                                    <label for="UnitName">Select Unit Name</label>
+
+                                                    <select id="UnitName" class="form-control " name="UnitName" placeholder="Unit Select" required>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="C">C</option>
+                                                        <option value="D">D</option>    
+                                                    </select>
+                                                </div>
+
+                                                <div class="row">
+                                                    <label for="pdf">Prospectus PDF</label>
+                                                    <input type="file" class="form-control" id="pdf" name="pdf">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col text-end me-5">
+                                                    <button class="btn btn-primary px-5" type="reset">Reset</button>
+                                                    <button class="btn btn-primary px-5" type="submit">Submit</button>
+                                                   
+                                                </div>
+            
+                                             </div>
+                                        </form>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- prospectus sectin ends from here -->
 
                     <div id="Notces" class="tab-pane fade">
-                        <p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p>
+                         <div class="container">
+                            <form  method="post" action="{% url 'notice' %}">
+                                {% csrf_token %}
+                                <div class="container">
+                                    <div class="row my-4">
+                                        <label for="UnitName">Select Unit Name</label>
+
+                                        <select id="UnitName" class="form-control " name="UnitName" placeholder="Unit Select" required>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>    
+                                        </select>
+                                    </div>
+
+                                    <div class="row">
+                                        <label for="notice">Make Notice</label>
+                                        <input type="text" class="form-control" id="notice" name="notice">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col text-end me-5">
+                                        <button class="btn btn-primary px-5" type="reset">Reset</button>
+                                        <button class="btn btn-primary px-5" type="submit">Submit</button>
+                                       
+                                    </div>
+
+                                 </div>
+                            </form>
+                         </div>
                     </div>
 
                     <div id="admit-card" class="tab-pane fade"><p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
