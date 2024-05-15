@@ -47,6 +47,8 @@ class GotSubject(models.Model):
     unit = models.CharField(max_length=100)
     subject = models.CharField(max_length=100)
     roll = models.IntegerField()
+    hall = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
 
     def __str__(self):
         return self.subject

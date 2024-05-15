@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from . models import ApplicatinCondition, Prospectus, Notices
+from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject
 
 # Create your views here.
 
@@ -79,6 +79,44 @@ class NoticesView(View):
 
             noticeinstance.save()
 
+        return redirect('teacherroom', pk=request.user.id)
+
+class MakeResult(View):
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            roll = request.POST.get('roll')
+            obtain_mark = request.POST.get('obtain_mark')
+            unit = request.POST.get('UnitName')
+        
+            result, created = ResultSheet.objects.get_or_create(
+                roll = roll,
+                obtain_mark = obtain_mark,
+                unit = unit
+            )
+
+            result.save()
+        return redirect('teacherroom', pk=request.user.id)
+
+
+
+class PlaceSubject(View):
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            roll = request.POST.get('roll')
+            subject = request.POST.get('subject')
+            unit = request.POST.get('unit')
+            hall = request.POST.get('hallname')
+            gender = request.POST.get('gender')
+        
+            subjectplace, created = GotSubject.objects.get_or_create(
+                roll = roll,
+                subject = subject,
+                unit = unit,
+                hall = hall,
+                gender = gender
+            )
+
+            subjectplace.save()
         return redirect('teacherroom', pk=request.user.id)
 
 

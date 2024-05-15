@@ -14,7 +14,7 @@ class ResultSheetAdmin(admin.ModelAdmin):
     list_display = ('unit', 'obtain_mark', 'roll')
 
 class GotSubjectAdmin(admin.ModelAdmin):
-    list_display = ('unit', 'subject', 'roll')
+    list_display = ('unit', 'subject', 'roll', 'gender')
 
 
 class AdmitCardAdmin(admin.ModelAdmin):

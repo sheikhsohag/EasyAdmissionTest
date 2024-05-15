@@ -22,12 +22,12 @@
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link active"  href="#application">Create Application Tarms&condition</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Prospectus">Upload Prospectus</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Notces">Make Notices</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Make Result</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#makeresult">Make Result</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Result</a></li>
 
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Merit Position</a></li>
 
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Give Student Subject</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#student_subject_give">Give Student Subject</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Subject Status</a></li>
                  </ul>
             </div>
@@ -175,6 +175,9 @@
 
                     <!-- prospectus sectin ends from here -->
 
+
+                    <!-- Notice sections start from here -->
+
                     <div id="Notces" class="tab-pane fade">
                          <div class="container">
                             <form  method="post" action="{% url 'notice' %}">
@@ -209,7 +212,118 @@
                          </div>
                     </div>
 
-                    <div id="admit-card" class="tab-pane fade"><p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus exercitationem minima quas, voluptatem voluptatibus reiciendis itaque voluptas in fugit tenetur aliquam nostrum quaerat nisi voluptates! Suscipit odio illum et officia!</p></div>
+                    <!-- Notice sectins ended from here  -->
+
+
+
+                         <!-- make result sections complated  -->
+                    <div id="makeresult" class="tab-pane fade">
+                        <div class="container">
+                            <form  method="post" action="{% url 'makeresult' %}">
+                                {% csrf_token %}
+                                <div class="container">
+                                    <div class="row my-4">
+                                        <label for="UnitName">Select Unit Name</label>
+
+                                        <select id="UnitName" class="form-control " name="UnitName" placeholder="Unit Select" required>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>    
+                                        </select>
+                                    </div>
+
+                                    <div class="row">
+                                        <label for="roll">Roll</label>
+                                        <input type="text" class="form-control" id="roll" name="roll">
+                                    </div>
+
+                                    <div class="row">
+                                        <label for="obtain_mark">Obtain Mark</label>
+                                        <input type="text" class="form-control" id="obtain_mark" name="obtain_mark">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col text-end me-5">
+                                        <button class="btn btn-primary px-5" type="reset">Reset</button>
+                                        <button class="btn btn-primary px-5" type="submit">Submit</button>
+                                       
+                                    </div>
+
+                                 </div>
+                            </form>
+                         </div>
+                    </div>
+
+                         <!-- make result sections ended  -->
+
+
+                         <!-- subject giving section start from here  -->
+
+
+                         <div id="student_subject_give" class="tab-pane fade">
+                            <div class="container">
+                                <form  method="post" action="{% url 'gotsubject' %}">
+                                    {% csrf_token %}
+                                    <div class="container">
+                                        <div class="row my-4">
+                                            <label for="UnitName">Select Unit Name</label>
+    
+                                            <select id="unit_subject" onclick="selectUnit()" class="form-control " name="unit" placeholder="Unit Select" required>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>    
+                                            </select>
+                                        </div>
+
+                                    
+    
+                                        <div class="row">
+                                            <label for="roll">Roll</label>
+                                            <input type="text" class="form-control" id="roll" name="roll">
+                                        </div>
+
+                                        <div class="row">
+                                            <label for="subject">Subject</label>
+                                            <select class="form-control" name="subject" id="subject">
+                                                <option value="Aqq">At First, Click on Subject</option>
+                                            </select>
+                                        </div>
+                                         
+                                        <div class="row my-4">
+                                            <label for="gender">Select Gender</label>
+    
+                                            <select id="gender" onclick="SelectGender()" class="form-control" name="gender" required>
+                                                <option value="male">Male</option>
+                                                <option value="female">Famale</option>
+                                                
+                                            </select>
+                                        </div>
+    
+                                        <div class="row">
+                                            <label for="hallname">Hall</label>
+                                            <select class="form-control" name="hallname" id="hallname">
+                                                  <option value="first">Select Gender First</option>
+                                            </select>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row mt-4">
+                                        <div class="col text-end me-5">
+                                            <button class="btn btn-primary px-5" type="reset">Reset</button>
+                                            <button class="btn btn-primary px-5" type="submit">Submit</button>
+                                           
+                                        </div>
+    
+                                     </div>
+                                </form>
+                             </div>
+                        </div>
+    
+
+                         <!-- subject giving sectin end from here  -->
 
                 </div>
 
@@ -219,6 +333,60 @@
              <!-- container information area  ended from here -->
         </div>
     </div>
+
+<script>
+        function SelectGender()
+        {
+
+            const maleHall = [
+                ["SHH", "Saddam Hossain Hall"],
+                ["JPBSMRH", "Jatir Pita Bangabandhu Sheikh Mujibur Rahman Hall"],
+                ["SPZRH", "Shahid President Ziaur Rahman Hall"],
+                ["LSH", "Lalon Shah Hall"],
+                ["SRH", "Sheikh Russel Hall"]
+            ];
+
+
+
+                        const femaleHall = [
+                            ["KZH", "Khaleda Zia Hall"],
+                            ["DSHH", "Deshratno Sheikh Hasina Hall"],
+                            ["BSFMH", "Bangamata Sheikh Fazilatunnesa Mujib Hall"],
+                           ];
+
+
+
+
+                const gender = document.getElementById('gender').value;
+                const hallName = document.getElementById('hallname');
+
+                if(gender=='male')
+                {
+                    let xmlCode = '';
+                    maleHall.forEach(value => {
+                        xmlCode += `<option value=${value[0]}>${value[1]}</option>`
+                    })
+                    hallName.innerHTML = xmlCode;
+                }
+
+                else{
+
+                    let xmlCode = '';
+                    femaleHall.forEach(value => {
+                        xmlCode += `<option value=${value[0]}>${value[1]}</option>`
+                    })
+                    hallName.innerHTML = xmlCode;
+
+                }
+
+        
+
+    }
+
+</script>
+
+
 {% endblock content %}
 
+{% block js %} {% static 'js/subjectgiving.js' %} {% endblock js %}
 
