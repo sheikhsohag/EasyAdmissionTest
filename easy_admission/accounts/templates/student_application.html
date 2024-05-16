@@ -1,0 +1,35 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/toggle_dashboard.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- navigation area start from here -->
+            <div class="col-12 col-md-2 navi-class">
+                 <ul class="nav d-block nav-pills">
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link "  href="#">Unit Select</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#application">D-Unit Application </a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link"  href="#Prospectus">D-Unit Prospectus</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link"  href="#Notces">D-Unit Notices</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link"  href="#admit-card">Admit Card</a></li>
+                 </ul>
+            </div>
+
+            
+        </div>
+    </div>
+{% endblock content %}
+
+

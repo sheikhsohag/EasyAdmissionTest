@@ -5,6 +5,10 @@ from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotS
 # Create your views here.
 
 class ApplicationCondition(View):
+    def get(self, request, *args, **kwargs):
+        print("=================================")
+        return render(request, 'application_condition.html',)
+    
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
             # Retrieve data from POST request
@@ -48,6 +52,10 @@ class ApplicationCondition(View):
         return redirect('teacherroom', pk=request.user.id)
 
 class ProspectusView(View):
+    def get(self, request, *args, **kwargs):
+        print("=================================")
+        return render(request, 'prospectus_student.html',)
+    
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
             pdf = request.FILES['pdf']
@@ -65,6 +73,10 @@ class ProspectusView(View):
         return redirect('teacherroom', pk=request.user.id)
 
 class NoticesView(View):
+    def get(self, request, *args, **kwargs):
+        print("=================================")
+        return render(request, 'notices_student.html',)
+
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
             notice = request.POST.get('notice')
@@ -120,5 +132,24 @@ class PlaceSubject(View):
         return redirect('teacherroom', pk=request.user.id)
 
 
+def subjectStatus(request):
+   
+    students = GotSubject.objects.all()
+    
+   
+    subjects = students.values_list('subject', flat=True).distinct()
+    
+  
+    grouped_students = {}
+    for subject in subjects:
+     
+        genders = students.filter(subject=subject).values_list('gender', flat=True).distinct()
+        
+        
+        grouped_students[subject] = {}
+        for gender in genders:
+            grouped_students[subject][gender] = students.filter(subject=subject, gender=gender)
+    
+    return render(request, 'template.html', {'grouped_students': grouped_students})
 
 

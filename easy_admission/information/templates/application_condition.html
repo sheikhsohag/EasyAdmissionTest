@@ -19,11 +19,11 @@
             <!-- navigation area start from here -->
             <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
                  <ul class="nav d-block nav-pills">
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#Unit-select">Unit Select</a></li>
-                    <li class="nav-item"><a   class="border nav-link "  href="{% url 'application_condition' %}">A-Unit Application </a></li>
-                    <li class="nav-item"><a   class="border nav-link"  href="{% url 'prospectus' %}">A-Unit Prospectus</a></li>
-                    <li class="nav-item"><a   class="border nav-link"  href="{% url 'notice' %}">A-Unit Notices</a></li>
-                    <li class="nav-item"><a   class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link "  href="#Unit-select">Unit Select</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#application">A-Unit Application </a></li>
+                    <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' %}">A-Unit Prospectus</a></li>
+                    <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' %}">A-Unit Notices</a></li>
+                    <li class="nav-item"><a  class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
                  </ul>
             </div>
 
@@ -33,8 +33,19 @@
             <!-- container information area start   -->
             <div class="col-12 col-md-6 container-section">
 
+                
+                <!-- applicaion condition area strated here  -->
                 <div class="tab-content">
-                    <div id="Unit-select" class="tab-pane active">
+                    <div id="application" class="tab-pane active">
+                       <h1>hello application select</h1>
+                    </div>
+                </div>
+                <!-- applicaion condition area ended here  -->
+
+
+                <!-- subject selection section start here -->
+                <div class="tab-content">
+                    <div id="Unit-select" class="tab-pane">
                         <form action="#" method="post">
                             {% csrf_token %}
                                <div class="row mx-5">
@@ -50,6 +61,8 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- subject selection section ended here -->
     
             </div>
              <!-- container information area  ended from here -->
