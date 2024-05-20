@@ -67,17 +67,51 @@
 
             <!-- navigatin area ended from here  -->
 
-
+            
             <!-- container information area start   -->
-            <div class="col-12 col-md-6 container-section">
+            <div class="col-12 col-md-6 container-section px-5">
 
+                {% if flag == "flag" %}
                 
+                {% if notice %}
+                <h1>Notificatoins for Unit: {{ notice.unit }}</h1>
+                <!-- <p>Uploaded on: {{ prospectus.uploaded_at }}</p> -->
+                <iframe src="{{ notice.notice.url }}" style="width: 100%; min-height: 100vh"> allow fullscreen  </iframe>
+                 {% else %}
+                <p>No Notificatoins available for this unit.</p>
+                {% endif %}
+
+                {% else %}
+
                 <!-- applicaion condition area strated here  -->
                 <div class="tab-content">
                     <div id="Prospectus" class="tab-pane active">
-                       <h1>hello Notice select</h1>
+                        {% if notice %}
+
+                        <div class="row bg-light rounded text-black shadow my-2">
+                            <div class="col-4"><p>Unit Name</p></div>
+                            <div class="col-4"><p>Title</p></div>
+                            <div class="col-4"><p>More Details</p></div>
+                        </div>
+
+                        {% for not in notice %}
+                         
+                        <div class="row bg-light rounded text-black shadow my-2">
+                            <div class="col-4"><p>{{not.unit}}</p></div>
+                            <div class="col-4"><p>{{not.title}}</p></div>
+                            <div class="col-4"><a href="{% url 'noticedetail' not.id %}">Details</a></div>
+                        </div>
+
+                        {% endfor %}
+
+                        {% else %}
+
+                        <h3>Notificatoins does not exsit!</h3>
+
+                        {% endif %}
                     </div>
                 </div>
+                {% endif %}
                 <!-- applicaion condition area ended here  -->
 
 

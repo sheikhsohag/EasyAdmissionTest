@@ -180,7 +180,7 @@
 
                     <div id="Notces" class="tab-pane fade">
                          <div class="container">
-                            <form  method="post" action="{% url 'notice' %}">
+                            <form  method="post" action="{% url 'notice' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="container">
                                     <div class="row my-4">
@@ -195,8 +195,13 @@
                                     </div>
 
                                     <div class="row">
-                                        <label for="notice">Make Notice</label>
-                                        <input type="text" class="form-control" id="notice" name="notice">
+                                        <label for="notice">Notice Title</label>
+                                        <input type="text" class="form-control" id="notice" name="notice_title">
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <label for="notice">Notice Pdf</label>
+                                        <input type="file" class="form-control" id="notice" name="notice_pdf">
                                     </div>
                                 </div>
 

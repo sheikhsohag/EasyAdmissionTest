@@ -33,9 +33,10 @@ class Prospectus(models.Model):
     def __str__(self):
         return self.unit
 class Notices(models.Model):
+    title = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     unit = models.CharField(max_length=10)
-    notice = models.TextField(max_length=1000)
+    notice = models.FileField(upload_to='pdfs/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 

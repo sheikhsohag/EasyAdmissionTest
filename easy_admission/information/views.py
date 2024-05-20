@@ -83,20 +83,22 @@ class ProspectusView(View):
 class NoticesView(View):
     def get(self, request, *args, **kwargs):
         unit = kwargs.get('A')
-        print(unit)
-        context = {"unitS":unit}
+        notice = Notices.objects.filter(unit=unit).order_by('-uploaded_at')
+        context = {"unitS":unit, "notice":notice}
         return render(request, 'notices_student.html',context)
 
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
-            notice = request.POST.get('notice')
+            title = request.POST.get('notice_title')
+            notice = request.FILES['notice_pdf']
             unit = request.POST.get('UnitName')
             users = request.user
 
             noticeinstance, created = Notices.objects.get_or_create(
                     user=users,
                     notice = notice,
-                    unit=unit
+                    unit=unit,
+                    title = title
             )
 
             noticeinstance.save()
@@ -166,4 +168,12 @@ def subjectStatus(request):
 class  MakeAdmid(View):
     pass
 
+
+
+class NoticeDetail(View):
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        notice = Notices.objects.get(id=pk)
+        context = {"flag":"flag", "notice":notice}
+        return render(request, 'notices_student.html',context)
 

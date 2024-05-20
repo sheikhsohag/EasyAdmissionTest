@@ -22,8 +22,9 @@ class AdmitCardAdmin(admin.ModelAdmin):
 
 class TransactionsAdmin(admin.ModelAdmin):
     list_display = ('user', 'transection_id')
+
 class NoticesAdmin(admin.ModelAdmin):
-    list_display = ('user', 'unit')
+    list_display = ('id', 'user', 'unit', 'title', 'notice')
 
 admin.site.register(Notices, NoticesAdmin)
 
