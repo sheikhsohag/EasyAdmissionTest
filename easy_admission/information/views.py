@@ -6,8 +6,13 @@ from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotS
 
 class ApplicationCondition(View):
     def get(self, request, *args, **kwargs):
-        print("=================================")
-        return render(request, 'application_condition.html',)
+        
+        unit = kwargs.get('A')
+        print(unit)
+        application = ApplicatinCondition.objects.filter(UnitName=unit).first()
+        print("====app==",application.Taka)
+        context = {"unitS":unit, "applications":application}
+        return render(request, 'application_condition.html', context)
     
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
@@ -53,8 +58,10 @@ class ApplicationCondition(View):
 
 class ProspectusView(View):
     def get(self, request, *args, **kwargs):
-        print("=================================")
-        return render(request, 'prospectus_student.html',)
+        unit = kwargs.get('A')
+        print(unit)
+        context = {"unitS":unit}
+        return render(request, 'prospectus_student.html',context)
     
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
@@ -74,8 +81,10 @@ class ProspectusView(View):
 
 class NoticesView(View):
     def get(self, request, *args, **kwargs):
-        print("=================================")
-        return render(request, 'notices_student.html',)
+        unit = kwargs.get('A')
+        print(unit)
+        context = {"unitS":unit}
+        return render(request, 'notices_student.html',context)
 
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
@@ -151,5 +160,9 @@ def subjectStatus(request):
             grouped_students[subject][gender] = students.filter(subject=subject, gender=gender)
     
     return render(request, 'template.html', {'grouped_students': grouped_students})
+
+
+class  MakeAdmid(View):
+    pass
 
 

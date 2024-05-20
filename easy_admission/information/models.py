@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class ApplicatinCondition(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     UnitName = models.CharField(max_length=100)
     Taka = models.CharField(max_length=100)
     firstdate = models.DateField()
     lastdate = models.DateField()
     totalsit = models.CharField(max_length=100)
-    sci_sit = models.CharField(max_length=100)  # Changed field name from 'Sci-sit' to 'Sci_sit'
+    sci_sit = models.CharField(max_length=100) 
     arts_sit = models.CharField(max_length=100)
     com_sit = models.CharField(max_length=100)
     tec_adu_sit = models.CharField(max_length=100)
@@ -19,11 +19,12 @@ class ApplicatinCondition(models.Model):
     com_qua = models.TextField()
     tec_qua = models.TextField()
 
+
     def __str__(self):
         return self.UnitName
     
 class Prospectus(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     unit = models.CharField(max_length=100)
     pdf_file = models.FileField(upload_to='pdfs/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
@@ -31,7 +32,7 @@ class Prospectus(models.Model):
     def __str__(self):
         return self.unit
 class Notices(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     unit = models.CharField(max_length=10)
     notice = models.TextField(max_length=1000)
     uploaded_at = models.DateTimeField(auto_now_add=True)
@@ -54,11 +55,11 @@ class GotSubject(models.Model):
         return self.subject
 
 class Admitcard(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     roll = models.IntegerField()
 
 class Transactions(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     transection_id = models.CharField(max_length=100)
 
     

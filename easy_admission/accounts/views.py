@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . models import UserAccountTypes, ProfileModel, TeacherProfileModel, profileImage
 from django.http import HttpResponseNotFound
+from django.urls import reverse
 
 # Create your views here.
 
@@ -455,10 +456,6 @@ class TeacherDashboardView(View):
     
 class StudentDashboardView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'student_toggle_dashboard.html')
+        context = {"hello":"oi"}   
+        return render(request, 'student_toggle_dashboard.html',context)
 
-
-
-
-
-                

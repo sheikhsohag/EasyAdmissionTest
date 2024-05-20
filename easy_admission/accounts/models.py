@@ -3,7 +3,8 @@ from django.db import models
 
 type =[
     ('student', 'Student'), 
-    ('teacher', 'Teacher')
+    ('teacher', 'Teacher'),
+    ('superuser', 'Superuser')
     ]
 
 

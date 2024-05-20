@@ -13,6 +13,9 @@
 
 
 {% block content %}
+
+   
+
     <div class="container-fluid">
         <div class="row">
 
@@ -20,9 +23,9 @@
             <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
                  <ul class="nav d-block nav-pills">
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#Unit-select">Unit Select</a></li>
-                    <li class="nav-item"><a   class="border nav-link "  href="{% url 'application_condition' %}">A-Unit Application </a></li>
-                    <li class="nav-item"><a   class="border nav-link"  href="{% url 'prospectus' %}">A-Unit Prospectus</a></li>
-                    <li class="nav-item"><a   class="border nav-link"  href="{% url 'notice' %}">A-Unit Notices</a></li>
+                    <li class="nav-item"><a   class="border nav-link "  href="{% url 'application_condition' 'A' %}">A-Unit Application </a></li>
+                    <li class="nav-item"><a   class="border nav-link"  href="{% url 'prospectus' 'A' %}">A-Unit Prospectus</a></li>
+                    <li class="nav-item"><a   class="border nav-link"  href="{% url 'notice' 'A' %}">A-Unit Notices</a></li>
                     <li class="nav-item"><a   class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
                  </ul>
             </div>
@@ -59,7 +62,17 @@
              <div class="col-12 col-md-4">
                    <h4 class="bg-primary text-white rounded py-2 text-center">Notification</h4>
              </div>
+
+
+
             <!-- notification are ended from here  -->
+
+
+            <!-- url container start from here -->
+
+
+
+            <!-- url container ended from her e -->
         </div>
     </div>
 {% endblock content %}

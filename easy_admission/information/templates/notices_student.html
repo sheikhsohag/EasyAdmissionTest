@@ -17,15 +17,53 @@
         <div class="row">
 
             <!-- navigation area start from here -->
+            {% if unitS == 'A' %}
             <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
                  <ul class="nav d-block nav-pills">
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link "  href="#Unit-select">Unit Select</a></li>
-                    <li class="nav-item"><a  class="border nav-link"  href="{% url 'application_condition' %}"> A-Unit Application </a> </li>
-                    <li class="nav-item"><a  class="border nav-link"  href="{% url 'prospectus' %}">A-Unit Prospectus</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link"  href="#Notces">A-Unit Notices</a></li>
+                  
+                    <li class="nav-item"><a  class="border nav-link "  href="{% url 'application_condition' 'A' %}">A-Unit Application </a></li>
+                    <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'A' %}">A-Unit Prospectus</a></li>
+                    <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'A' %}">A-Unit Notices</a></li>
                     <li class="nav-item"><a  class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
                  </ul>
             </div>
+            {% elif unitS == 'B' %}
+
+            <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
+                <ul class="nav d-block nav-pills">
+                 
+                   <li class="nav-item"><a  class="border nav-link "  href="{% url 'application_condition' 'A' %}">B-Unit Application </a></li>
+                   <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'B' %}">B-Unit Prospectus</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'B' %}">B-Unit Notices</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="#admit-card">B Unit Admit Card</a></li>
+                </ul>
+           </div>
+
+            {% elif unitS == 'C' %}
+
+            <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
+                <ul class="nav d-block nav-pills">
+                 
+                   <li class="nav-item"><a  class="border nav-link "  href="{% url 'application_condition' 'A' %}">C-Unit Application </a></li>
+                   <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'C' %}">C-Unit Prospectus</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'C' %}">C-Unit Notices</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="#admit-card">C Unit Admit Card</a></li>
+                </ul>
+           </div>
+
+            {% else %}
+
+            <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
+                <ul class="nav d-block">
+                 
+                   <li class="nav-item"><a  class="border nav-link "  href="{% url 'application_condition' 'A' %}">D-Unit Application </a></li>
+                   <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'D' %}">D-Unit Prospectus</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'D' %}">D-Unit Notices</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="#admit-card">D Unit Admit Card</a></li>
+                </ul>
+           </div>
+
+             {% endif %}
 
             <!-- navigatin area ended from here  -->
 
@@ -70,15 +108,35 @@
 
              <!-- notification are ended from here  -->
              <div class="col-12 col-md-4">
-                   <h4 class="bg-primary text-white rounded py-2 text-center">Notification</h4>
+                <div class="tab-content">
+                    <div id="Unit-select">
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                               <div class="row mx-5">
+                                <label for="unit_select">Select Unit</label>
+                                <select onclick="UnitSelection()" class="py-2 rounded" name="unit" id="units_selections">
+                                    <option value="A">A Unit</option>
+                                    <option value="B">B Unit</option>
+                                    <option value="C">C Unit</option>
+                                    <option value="D">D Unit</option>
+                                </select>
+                               </div>
+
+                        </form>
+                    </div>
+                </div>
+
              </div>
             <!-- notification are ended from here  -->
         </div>
     </div>
+
+
+   
 {% endblock content %}
+
+
 
 {% block js %}
    {% static 'js/student_panel.js'%}
 {% endblock js %}
-
-

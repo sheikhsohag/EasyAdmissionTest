@@ -39,6 +39,8 @@
 
                 <!-- student Teacher divider section start here -->
 
+                
+
                   {% if account_type == "student" %}
                   
                 <div class="collapse navbar-collapse " style="text-align: center !important;" id="navbarSupportedContent">
@@ -50,11 +52,11 @@
                 
                 <div class="profile-section ms-lg-5 ">    
 
-                    {% elif account_type == "teacher" %}
+                    {% elif account_type == "teacher" or account_type == "superuser" %}
 
                     <div class="collapse navbar-collapse " style="text-align: center !important;" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto pr-lg-5">
-                            <li class="nav-item pe-lg-5"><a class="nav-link active" href="{% url 'teacherroom' request.user.id %}">Teacher Room</a></li>
+                            <li class="nav-item pe-lg-5"><a class="nav-link active" href="{% url 'teacherroom' request.user.id %}">Admin Room</a></li>
                             <li class="nav-item pe-lg-5"><a class="nav-link active text-lg-center" href="#">Home</a></li>
                             <li class="nav-item pe-lg-5"><a class="nav-link active" href="#">Home</a></li>
                         </ul>

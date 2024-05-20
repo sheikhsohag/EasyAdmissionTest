@@ -7,7 +7,7 @@
 
 {% block css %}
 
-{% static 'css/toggle_dashboard.css' %}
+{% static 'css/application_condition.css' %}
 
 {% endblock css %}
 
@@ -17,51 +17,114 @@
         <div class="row">
 
             <!-- navigation area start from here -->
+            {% if unitS == 'A' %}
             <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
-                 <ul class="nav d-block nav-pills">
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link "  href="#Unit-select">Unit Select</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border nav-link active"  href="#application">A-Unit Application </a></li>
-                    <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' %}">A-Unit Prospectus</a></li>
-                    <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' %}">A-Unit Notices</a></li>
+                 <ul class="nav d-block">
+                    
+    
+                    <li class="nav-item"><a   class="border nav-link "  href="{% url 'application_condition' 'A' %}">A-Unit Application </a></li>
+                    <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'A' %}">A-Unit Prospectus</a></li>
+                    <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'A' %}">A-Unit Notices</a></li>
                     <li class="nav-item"><a  class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
                  </ul>
             </div>
+            {% elif unitS == 'B' %}
+
+            <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
+                <ul class="nav d-block">
+                   
+                   <li class="nav-item"><a   class="border nav-link " href="{% url 'application_condition' 'B' %}">B-Unit Application </a></li>
+                   <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'B' %}">B-Unit Prospectus</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'B' %}">B-Unit Notices</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="#admit-card">B Unit Admit Card</a></li>
+                </ul>
+           </div>
+
+            {% elif unitS == 'C' %}
+
+            <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
+                <ul class="nav d-block">
+                   
+                   <li class="nav-item"><a   class="border nav-link " href="{% url 'application_condition' 'C' %}">C-Unit Application </a></li>
+                   <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'C' %}">C-Unit Prospectus</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'C' %}">C-Unit Notices</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="#admit-card">C Unit Admit Card</a></li>
+                </ul>
+           </div>
+
+            {% else %}
+
+            <div class="col-12 col-md-2 navi-class" id="student_toggle_unit">
+                <ul class="nav d-block">
+                   
+                   <li class="nav-item"><a   class="border nav-link " href="{% url 'application_condition' 'D' %}">D-Unit Application </a></li>
+                   <li class="nav-item"><a  class="border nav-link" href="{% url 'prospectus' 'D' %}">D-Unit Prospectus</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="{% url 'notice' 'D' %}">D-Unit Notices</a></li>
+                   <li class="nav-item"><a  class="border nav-link"  href="#admit-card">D Unit Admit Card</a></li>
+                </ul>
+           </div>
+
+             {% endif %}
 
             <!-- navigatin area ended from here  -->
 
 
             <!-- container information area start   -->
-            <div class="col-12 col-md-6 container-section">
+            <div class="col-12 col-md-7 container-section">
 
                 
                 <!-- applicaion condition area strated here  -->
-                <div class="tab-content">
-                    <div id="application" class="tab-pane active">
-                       <h1>hello application select</h1>
+                <div class="tab-content pe-2">
+                    <div class="container text-center">
+                        <!-- header -->
+                            <div class="row border">
+                                <div class="col-6 border p-3">First Date: {{applications.firstdate}}</div>
+                                <div class="col-6 border p-3">Last Date: {{applications.lastdate}}</div>
+                            </div>
+                       
+                           <div class="row border">
+                            <div class="col-3 border"><p>ইউনিট</p></div>
+                            <div class="col-3 border p-1"><p>যে সকল শাখার ছাত্রছাত্রী আবেদন করতে পারবে</p></div>
+                            <div class="col-6 border"><p>ন্যূনতম যোগ্যতা</p></div>
+                           </div>
+
+                           <div class="row border mb-5">
+                                <div class="col-3 border">
+                                    <p>{{ applications.UnitName }}</p>
+                                    <p>Total Sit: {{applications.totalsit}}</p>
+                                    <p>{{ applications.Taka }}</p>
+                                </div>
+
+                                <div class="col-9">
+                                      <div class="row border">
+                                        <div class="col-4 border"><p>বিজ্ঞান</p> <h4>Sit:{{applications.sci_sit}}</div>
+                                        <div class="col-8 border"><p>{{applications.sci_qua}}</p></div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-4 border"><p>মানবিক</p> <h4>Sit:{{applications.arts_sit}}</h4></div>
+                                        <div class="col-8 border"><p>{{applications.arts_qua}}</p></div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-4 border"><p>বাণিজ্য শাখা</p> <h4>Sit:{{applications.com_sit}}</div>
+                                        <div class="col-8 border"><p>{{applications.com_qua}}</p></div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-4 border"><p>কারিগরি শিক্ষা</p> <h4>Sit:{{applications.com_sit}}</div>
+                                        <div class="col-8 border"><p>{{applications.tec_qua}}</p></div>
+                                      </div>
+                                </div>
+                           </div>
+                        <!-- close header -->
                     </div>
                 </div>
                 <!-- applicaion condition area ended here  -->
 
 
                 <!-- subject selection section start here -->
-                <div class="tab-content">
-                    <div id="Unit-select" class="tab-pane">
-                        <form action="#" method="post">
-                            {% csrf_token %}
-                               <div class="row mx-5">
-                                <label for="unit_select">Select Unit</label>
-                                <select onclick="UnitSelection()" class="py-2 rounded" name="unit" id="units_selections">
-                                    <option value="A">A Unit</option>
-                                    <option value="B">B Unit</option>
-                                    <option value="C">C Unit</option>
-                                    <option value="D">D Unit</option>
-                                </select>
-                               </div>
-
-                        </form>
-                    </div>
-                </div>
-
+                
                 <!-- subject selection section ended here -->
     
             </div>
@@ -69,16 +132,108 @@
 
 
              <!-- notification are ended from here  -->
-             <div class="col-12 col-md-4">
-                   <h4 class="bg-primary text-white rounded py-2 text-center">Notification</h4>
+             <div class="col-12 col-md-3">
+                  
+                   <div class="tab-content">
+                    <div id="Unit-selects">
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="row mx-5">
+                                <label class="bg-primary p-2 mb-2 rounded text-center" for="unit_select">Select Unit</label>
+                                <select onchange="UnitSelection()" class="py-2 rounded" name="unit" id="units_selections">
+                                    <option value="A">A Unit</option>
+                                    <option value="B">B Unit</option>
+                                    <option value="C">C Unit</option>
+                                    <option value="D">D Unit</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
              </div>
             <!-- notification are ended from here  -->
         </div>
     </div>
+
+
+    <script>
+        
+
+function UnitSelection()
+{
+    console.log("yes call")
+    const unit = document.getElementById('units_selections').value 
+    const section = document.getElementById('student_toggle_unit');
+    
+    if(unit=="B")
+        {
+            let xmlCode = ` 
+            <ul class="nav d-block nav-pills">
+           
+            <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/B">B-Unit Application </a></li>
+            <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/Prospectus/B">B-Unit Prospectus </a></li>
+            <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/B">B-Unit Notices</a></li>
+            <li class="nav-item"><a   class="border nav-link"  href="#admit-card">B Unit Admit Card</a></li>
+            </ul>
+            `
+
+            section.innerHTML = xmlCode;
+        }
+
+       else if(unit=="A")
+            {
+                let xmlCode = `
+                
+                <ul class="nav d-block nav-pills">
+               
+                <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/A">A-Unit Application </a></li>
+                <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Prospectus/A">A-Unit Prospectus</a></li>
+                <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/A">A-Unit Notices</a></li>
+                <li class="nav-item"><a   class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
+             </ul>
+                
+                `
+    
+                section.innerHTML = xmlCode;
+            }
+        
+            else if(unit=="C")
+                {
+                    let xmlCode = `
+                    
+                    <ul class="nav d-block nav-pills">
+                   
+                    <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/C">C-Unit Application </a></li>
+                    <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Prospectus/C">C-Unit Prospectus</a></li>
+                    <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/C">C-Unit Notices</a></li>
+                    <li class="nav-item"><a   class="border nav-link"  href="#admit-card">C Unit Admit Card</a></li>
+                 </ul>
+                         `
+                    section.innerHTML = xmlCode;
+                }
+
+            else
+
+            if(unit=="D")
+                {
+                    let xmlCode = `
+                    
+                    <ul class="nav d-block nav-pills">
+                   
+                    <li class="nav-item"><a class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/D">D-Unit Application </a></li>
+                    <li class="nav-item"><a class="border nav-link"  href="http://127.0.0.1:8000/information/make/Prospectus/D">D-Unit Prospectus</a></li>
+                    <li class="nav-item"><a class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/D">D-Unit Notices</a></li>
+                    <li class="nav-item"><a class="border nav-link"  href="#admit-card">D Unit Admit Card</a></li>
+                 </ul>
+                    
+                    `
+        
+                    section.innerHTML = xmlCode;
+                }
+}
+    </script>
 {% endblock content %}
 
-{% block js %}
-   {% static 'js/student_panel.js'%}
-{% endblock js %}
 
 
