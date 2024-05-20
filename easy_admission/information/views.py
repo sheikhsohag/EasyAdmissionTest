@@ -8,9 +8,9 @@ class ApplicationCondition(View):
     def get(self, request, *args, **kwargs):
         
         unit = kwargs.get('A')
-        print(unit)
+        # print(unit)
         application = ApplicatinCondition.objects.filter(UnitName=unit).first()
-        print("====app==",application.Taka)
+        # print("====app==",application.Taka)
         context = {"unitS":unit, "applications":application}
         return render(request, 'application_condition.html', context)
     
@@ -33,7 +33,7 @@ class ApplicationCondition(View):
 
             # Get or create the object using the retrieved data
 
-            print("sci_sit===========================", sci_sit)
+            # print("sci_sit===========================", sci_sit)
 
             application, created = ApplicatinCondition.objects.get_or_create(
                 UnitName=unit_name,
@@ -59,8 +59,9 @@ class ApplicationCondition(View):
 class ProspectusView(View):
     def get(self, request, *args, **kwargs):
         unit = kwargs.get('A')
-        print(unit)
-        context = {"unitS":unit}
+        prospectus = Prospectus.objects.filter(unit=unit).order_by('-uploaded_at').first()
+        context = {"unitS":unit, "prospectus":prospectus}
+        print("yes pdf", prospectus.pdf_file)
         return render(request, 'prospectus_student.html',context)
     
     def post(self, request, *args, **kwargs):

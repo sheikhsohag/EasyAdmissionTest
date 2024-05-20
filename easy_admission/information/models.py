@@ -28,6 +28,7 @@ class Prospectus(models.Model):
     unit = models.CharField(max_length=100)
     pdf_file = models.FileField(upload_to='pdfs/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return self.unit
@@ -36,6 +37,7 @@ class Notices(models.Model):
     unit = models.CharField(max_length=10)
     notice = models.TextField(max_length=1000)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
 
 class ResultSheet(models.Model):
     unit = models.CharField(max_length=100)

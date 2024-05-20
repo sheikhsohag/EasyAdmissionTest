@@ -68,15 +68,20 @@
 
 
             <!-- container information area start   -->
-            <div class="col-12 col-md-6 container-section">
+            <div class="col-12 col-md-7 ">
 
                 
                 <!-- applicaion condition area strated here  -->
-                <div class="tab-content">
-                    <div id="Prospectus" class="tab-pane active">
-                       <h1>hello prospectus select</h1>
-                    </div>
-                </div>
+            
+    
+            {% if prospectus %}
+                <h1>Prospectus for Unit: {{ unitS }}</h1>
+                <!-- <p>Uploaded on: {{ prospectus.uploaded_at }}</p> -->
+                <iframe src="{{ prospectus.pdf_file.url }}" style="width: 100%; min-height: 100vh"> allow fullscreen  </iframe>
+              {% else %}
+                <p>No prospectus available for this unit.</p>
+            {% endif %}
+            
                 <!-- applicaion condition area ended here  -->
 
 
@@ -89,7 +94,7 @@
 
 
              <!-- notification are ended from here  -->
-             <div class="col-12 col-md-4">
+             <div class="col-12 col-md-3">
                 <div class="tab-content">
                     <div id="Unit-select">
                         <form action="#" method="post">
