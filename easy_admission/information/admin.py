@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ApplicatinCondition,Prospectus, ResultSheet, GotSubject, Admitcard, Transactions, Notices
+from .models import ApplicatinCondition,Prospectus, ResultSheet, GotSubject, Admitcard, Transactions, Notices, ApplyInformation
 
 # Register your models here.
 
@@ -28,6 +28,11 @@ class NoticesAdmin(admin.ModelAdmin):
 
 admin.site.register(Notices, NoticesAdmin)
 
+
+class ApplyInformationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'unit')
+
+admin.site.register(ApplyInformation, ApplyInformationAdmin)
 
 
 admin.site.register(Prospectus, ProspectusAdmin)

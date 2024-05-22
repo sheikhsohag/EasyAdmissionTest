@@ -65,6 +65,16 @@ class Transactions(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     transection_id = models.CharField(max_length=100)
 
+
+class ApplyInformation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    unit = models.CharField(max_length=10)
+    transactions = models.BooleanField(null=True, blank=True, default=False)
+   
+
+    def __str__(self):
+        return f'Username {{self.user}} unit {{self.unit}}'
+
     
 
 

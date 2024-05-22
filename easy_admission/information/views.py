@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject
+from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject, ApplyInformation
+from accounts.models import ProfileModel
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -177,3 +180,61 @@ class NoticeDetail(View):
         context = {"flag":"flag", "notice":notice}
         return render(request, 'notices_student.html',context)
 
+
+class Apply(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'apply.html')
+
+    def post(self, request, *args, **kwargs):
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        unit = request.POST.get("unit")
+
+        user = authenticate(request, username=username, password=password)
+            
+            
+        if user is not None:
+            print("user authenticatons")
+            profile  = ProfileModel.objects.filter(user=user).first()
+
+            if profile:
+                Apply, created = ApplyInformation.objects.get_or_create(
+                user = user, 
+                unit = unit, 
+                  )
+                Apply.save()
+                context = {"massege":"Apply Successfully Completed, Please Payment Within 24 Hours!"}
+                return render(request, 'student_toggle_dashboard.html', context)
+            else:            
+                return redirect('student_profile_update', pk=user.id )
+        else:
+            return redirect('register')
+
+
+class Payment(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'payment.html')
+
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get("username")
+        user = User.objects.filter(username=username).first()
+
+        if user is not None:
+            apply_info = ApplyInformation.objects.filter(user=user).first()
+            if apply_info:
+                # Update the transactions field to True
+                apply_info.transactions = True
+                apply_info.save()
+
+                # Optionally, you can add a message or redirect to a success page
+                context = {"massege": "Payment processed successfully!"}
+                return render(request, 'student_toggle_dashboard.html', context)
+            else:
+                # Handle case where apply_info is not found
+                context = {"error": "Apply information not found for the user."}
+                return render(request, 'payment.html', context)
+        else:
+            # Handle case where user is not found
+            context = {"error": "User not found."}
+            return render(request, 'payment.html', context)

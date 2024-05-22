@@ -77,7 +77,7 @@
                 <div class="tab-content pe-2">
                     <div class="container text-center">
                         <!-- header -->
-                            <div class="row border">
+                            <div class="row border bg-primary text-white">
                                 <div class="col-6 border p-3">First Date: {{applications.firstdate}}</div>
                                 <div class="col-6 border p-3">Last Date: {{applications.lastdate}}</div>
                             </div>
@@ -134,7 +134,7 @@
              <!-- notification are ended from here  -->
              <div class="col-12 col-md-3">
                   
-                   <div class="tab-content">
+                <div class="tab-content">
                     <div id="Unit-selects">
                         <form action="#" method="post">
                             {% csrf_token %}
@@ -149,7 +149,16 @@
                             </div>
                         </form>
                     </div>
+
                 </div>
+
+                <div class="row text-center mt-4 text-white">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary text-white px-3"><a class="text-white" href="{% url 'apply' %}">Apply Now</a></button>
+                    </div>
+                </div>
+
+
 
              </div>
             <!-- notification are ended from here  -->
