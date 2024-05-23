@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import ApplicationCondition, ProspectusView, NoticesView, MakeResult, PlaceSubject,  MakeAdmid, NoticeDetail, Apply, Payment, AdmitCart
+from .views import ApplicationCondition, ProspectusView, NoticesView, MakeResult, PlaceSubject,  MakeAdmid, NoticeDetail, Apply, Payment, AdmitCart, Result, admitcartDate, ResultView
 
 
 urlpatterns = [
@@ -18,5 +18,8 @@ urlpatterns = [
    path('apply/',Apply.as_view(), name="apply"),
    path('payment/', Payment.as_view(), name='payment'),
    path('admitcart/', AdmitCart.as_view(), name="admitcart"),
+   path('result/', Result.as_view(), name="resultpb"),
+   path('admitcart/date/', admitcartDate.as_view(), name="admitcartdate"),
 
+   path('publish/result/', ResultView.as_view(), name="resultll"),
 ]

@@ -69,7 +69,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = ProfileModel
-        exclude = ('user',) 
+        exclude = ('user','roll_number') 
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)

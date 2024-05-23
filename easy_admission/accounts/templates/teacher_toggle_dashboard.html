@@ -23,7 +23,8 @@
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Prospectus">Upload Prospectus</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#Notces">Make Notices</a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#makeresult">Make Result</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Result</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#admitcartdate">Admit Cart Publish Date </a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#resultdate">Result Publish Date </a></li>
 
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Merit Position</a></li>
 
@@ -343,12 +344,69 @@
                              </div>
                          <!-- check subject status  how many set rest -->
 
+                         <!-- result pushlish date  start -->
+
+                             <div id="resultdate" class="tab-pane fade">
+                                <div class="container">
+                                    <form action="{% url 'resultpb' %}" method="post">
+                                        {% csrf_token %}
+
+                                        <label for="UnitName">Select Unit Name</label>
+
+                                        <select id="UnitName" class="form-control mb-3" name="unit" placeholder="Unit Select" required>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>    
+                                        </select>
+
+                                        <button class="btn btn-primary">pushlish Now</button>
+                                    </form>
+                               </div>
+    
+                             </div>
+                         <!-- result pushlish date end -->
+
+
+                         <!-- Admit Cart pushlish date start here -->
+
+                         <div id="admitcartdate" class="tab-pane fade">
+                            <div class="container">
+                                <form action="{% url 'admitcartdate' %}" method="post">
+                                    {% csrf_token %}
+
+                                    <label for="UnitName">Select Unit Name</label>
+
+                                    <select id="UnitName" class="form-control mb-2" name="unit" placeholder="Unit Select" required>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>    
+                                    </select>
+
+                                    <button class="btn btn-primary">pushlish Now</button>
+                                </form>
+                           </div>
+
+                         </div>
+
+                         <!-- admit cart pushlish date ended here  -->
+
                 </div>
 
                 
                 
             </div>
              <!-- container information area  ended from here -->
+
+
+             <div class="col-12 col-md-2">
+                <div class="row">
+                    <h3 class="bg-primary">Notifications</h3>
+
+                    <p id="apply">{{message}}</p>
+                </div>
+             </div>
         </div>
     </div>
 
@@ -401,6 +459,39 @@
 
     }
 
+</script>
+
+
+<script>
+    // Function to change text color
+    function changeTextColor() {
+        var element = document.getElementById('apply');
+        var colors = ['red', 'blue', 'black', 'orange']; // Array of colors
+        var currentColorIndex = 0;
+
+        // Function to update the color
+        function updateColor() {
+            element.style.color = colors[currentColorIndex];
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+        }
+
+        // Change color every 15 seconds
+        var colorInterval = setInterval(updateColor, 7000);
+
+        // Remove element and clear interval after 1 minute
+        setTimeout(function() {
+            clearInterval(colorInterval);
+            if (element) {
+                element.remove();
+            }
+        }, 30000);
+
+        // Initial call to set the first color
+        updateColor();
+    }
+
+    // Call the function to start the process
+    changeTextColor();
 </script>
 
 

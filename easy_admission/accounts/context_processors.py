@@ -14,3 +14,22 @@ def model_context(request):
         return {'account_type': account_type}
     else:
         return {}
+
+
+# context_processors.py
+
+from .models import profileImage
+
+def user_profile_image(request):
+    profile_image = None
+    if request.user.is_authenticated:
+        try:
+            profile_image = profileImage.objects.get(user=request.user)
+            if not profile_image.profile_image:
+                profile_image = None
+        except profileImage.DoesNotExist:
+            profile_image = None
+
+    return {
+        'profile_image': profile_image,
+    }

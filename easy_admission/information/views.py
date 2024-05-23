@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject, ApplyInformation
+from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject, ApplyInformation, publishDate
 from accounts.models import ProfileModel
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -273,4 +273,97 @@ class AdmitCart(View):
             return render(request, 'student_toggle_dashboard.html', context={"massege":"You didn't Completed Admission Apply Proccess"})
             
         return render(request, 'student_toggle_dashboard.html', context={"massege":"You are not valid informations!"})
+
+
+
+class admitcartDate(View):
+    
+    def post(self, request, *args, **kwargs):
+        unit = request.POST.get('unit')
+        
+        dates, created = publishDate.objects.get_or_create(
+            unit=unit
+        )
+        
+        dates.unit = unit
+        dates.admitcart = True
+
+        dates.save()
+        return render(request, 'teacher_toggle_dashboard.html', context={"message":"Successfully Publish Admit Cart!"})
+
+
+class Result(View):
+    def post(self, request, *args, **kwargs):
+        # unit = None
+        
+        unit = request.POST.get('unit')
+
+        # print(unit, "==========================")
+
+        # Fetch the first publishDate object matching the unit
+        dates = publishDate.objects.filter(unit=unit).first()
+
+        if dates:
+            # Update the fields that are provided in the request
+            dates.result = True  # Set the result field to True
+
+            # Save the updated object
+            dates.save()
+
+            message = "Successfully Published Result!"
+        else:
+            message = "Unit not found!"
+
+        return render(request, 'teacher_toggle_dashboard.html', context={"message": message})
+
+
+
+# show result
+
+class ResultView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'showresultform.html')
+    
+    def post(self, request, *args, **kwargs):
+        unit = request.POST.get('unit')
+        try:
+            dated = publishDate.objects.get(unit=unit)
+            if dated.result:
+                results = ResultSheet.objects.filter(unit=unit).order_by('-obtain_mark')
+                rank = None
+                obtain_mark = None
+
+                rolluser = ProfileModel.objects.get(user=request.user)
+                roll = rolluser.roll_number
+
+                for index, result in enumerate(results):
+                    if result.roll == int(roll):
+                        rank = index + 1
+                        obtain_mark = result.obtain_mark
+                        break
+                
+                print(rank, obtain_mark)
+
+                if rank is not None:
+                    context = {
+
+                        'results': results,
+                        'student_rank': rank,
+                        'obtain_mark': obtain_mark,
+                    }
+                return render(request, 'showresult.html', context)
+            else:
+                return render(request, 'student_toggle_dashboard.html', context={"message": "Result does not publish yet!"})
+        except publishDate.DoesNotExist:
+            return render(request, 'student_toggle_dashboard.html', context={"message": "Unit not found!"})
+
+
+        
+        
+
+
+
+
+
     

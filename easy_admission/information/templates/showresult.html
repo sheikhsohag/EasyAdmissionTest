@@ -1,0 +1,64 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/login.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+ <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4 py-2">
+            <h3 class="bg-primary text-center py-2 rounded">MY Result: </h3>
+            <div class="row">
+                <div class="col-5">
+                    <p>Rank:  {{student_rank}}</p>
+                        
+                    <p>Obtain Mark:  {{obtain_mark}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-7 py-2">
+            <h3 class="bg-primary text-center py-2 rounded">Overall Result: </h3>
+            <div class="row">
+                <div class="col-12">
+
+                    <table class="table table-striped">
+
+                        <thead>
+                          <tr>
+                            <th scope="col-4">Rank</th>
+                            <th scope="col-4">Roll</th>
+                            <th scope="col-4">Result</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for result in results %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td> <!-- This will display the rank -->
+                            <td>{{ result.roll }}</td>
+                            <td>{{ result.obtain_mark }}</td>
+                          </tr>
+
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+{% endblock content %}
+
+
+

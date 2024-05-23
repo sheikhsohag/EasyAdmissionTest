@@ -9,6 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . models import UserAccountTypes, ProfileModel, TeacherProfileModel, profileImage
 from django.http import HttpResponseNotFound
 from django.urls import reverse
+from django.db import transaction
+from django.db.utils import IntegrityError
 
 # Create your views here.
 
@@ -17,13 +19,13 @@ def home(request):
 
 # home page views end here.......................................................
 
+
 def RegisterViews(request):
     if request.method == "POST":
         forms = UserForm(request.POST)
         if forms.is_valid():
-            
             cleaned_data = forms.cleaned_data
-        
+            
             # Extract relevant data
             username = cleaned_data['username']
             first_name = cleaned_data['first_name']
@@ -31,25 +33,28 @@ def RegisterViews(request):
             email = cleaned_data['email']
             password1 = cleaned_data['password1']
             password2 = cleaned_data['password2']
-
             account_types = cleaned_data['account_type']
 
+            try:
+                with transaction.atomic():
+                    # Create the user
+                    user = User.objects.create_user(username=username, email=email, password=password1)
+                    user.first_name = first_name
+                    user.last_name = last_name
+                    user.save()
 
-            user = User.objects.create_user(username=username, email=email, password=password1)
-            user.first_name = first_name
-            user.last_name = last_name
-            userIn = user.save()
-            
-            user = User.objects.get(username=username)
-
-            account_type_user = UserAccountTypes.objects.create(user=user, account_type=account_types)
-
-            account_type_user.save()
-
-
-            return redirect('login')  
+                    # Check if UserAccountTypes entry already exists for this user
+                    if not UserAccountTypes.objects.filter(user=user).exists():
+                        # Create the UserAccountTypes entry
+                        UserAccountTypes.objects.create(user=user, account_type=account_types)
+                    
+                    return redirect('login')
+            except IntegrityError:
+                # Handle the error
+                forms.add_error(None, "An account with this user already exists.")
     else:
         forms = UserForm()
+
     return render(request, 'register.html', {'forms': forms})
 
 
@@ -130,106 +135,79 @@ class CreateProfile(View):
         profile = ProfileForm()
         profile_photo = profileImage.objects.filter(user=user).first()
 
-       
         if not profile_data:
-            return render(request, 'create_profile.html', {'profile':profile})
+            return render(request, 'create_profile.html', {'profile': profile})
         else:
-             return render(request, 'student_profile_update.html', {'profile':profile, 'profile_info':profile_data, 'profile_photo':profile_photo})
-
+            return render(request, 'student_profile_update.html', {
+                'profile': profile,
+                'profile_info': profile_data,
+                'profile_photo': profile_photo
+            })
 
     def post(self, request, *args, **kwargs):
-     
-        if request.method == 'POST':
-            
-            form = ProfileForm(request.POST, request.FILES)
-            print(form)
-            if form.is_valid():
-               
-                profile = ProfileModel.objects.filter(user=request.user).first()
-                profile_imgs = profileImage.objects.filter(user=request.user).first()
-                
-                if profile:
-                    profile.full_name = form.cleaned_data['full_name']
-                    profile.father_name = form.cleaned_data['father_name']
-                    profile.mother_name = form.cleaned_data['mother_name']
-                    profile.village = form.cleaned_data['village']
-                    profile.subdistrict = form.cleaned_data['subdistrict']
-                    profile.district = form.cleaned_data['district']
-                    profile.ssc_board = form.cleaned_data['ssc_board']
-                    profile.ssc_year = form.cleaned_data['ssc_year']
-                    profile.ssc_result = form.cleaned_data['ssc_result']
-                    profile.registration = form.cleaned_data['registration']
+        form = ProfileForm(request.POST, request.FILES)
 
-                    profile.hsc_board = form.cleaned_data['hsc_board']
-                    profile.hsc_year = form.cleaned_data['hsc_year']
-                    profile.hsc_result = form.cleaned_data['hsc_result']
-                    profile.save()
+        print(form)
+        
+        if form.is_valid():
 
-                else:
-                    full_name = form.cleaned_data['full_name']
-                    father_name = form.cleaned_data['father_name']
-                    mother_name = form.cleaned_data['mother_name']
-                    village = form.cleaned_data['village']
-                    subdistrict = form.cleaned_data['subdistrict']
-                    district = form.cleaned_data['district']
-                    ssc_board = form.cleaned_data['ssc_board']
-                    ssc_year = form.cleaned_data['ssc_year']
-                    ssc_result = form.cleaned_data['ssc_result']
-                    registration = form.cleaned_data['registration']
+            print("form valid=========================")
+            profile = ProfileModel.objects.filter(user=request.user).first()
+            profile_imgs = profileImage.objects.filter(user=request.user).first()
 
-                    hsc_board = form.cleaned_data['hsc_board']
-                    hsc_year = form.cleaned_data['hsc_year']
-                    hsc_result = form.cleaned_data['hsc_result']
-                    hsc_division = form.cleaned_data['hsc_division ']
-                    ssc_division  = form.cleaned_data['ssc_division ']
+            if profile:
+                profile.full_name = form.cleaned_data['full_name']
+                profile.father_name = form.cleaned_data['father_name']
+                profile.mother_name = form.cleaned_data['mother_name']
+                profile.village = form.cleaned_data['village']
+                profile.subdistrict = form.cleaned_data['subdistrict']
+                profile.district = form.cleaned_data['district']
+                profile.ssc_board = form.cleaned_data['ssc_board']
+                profile.ssc_year = form.cleaned_data['ssc_year']
+                profile.ssc_result = form.cleaned_data['ssc_result']
+                profile.registration = form.cleaned_data['registration']
+                profile.hsc_board = form.cleaned_data['hsc_board']
+                profile.hsc_year = form.cleaned_data['hsc_year']
+                profile.hsc_result = form.cleaned_data['hsc_result']
+                profile.hsc_division = form.cleaned_data['hsc_division']
+                profile.ssc_division = form.cleaned_data['ssc_division']
 
-                    
-
-                 
-
-                    profile = ProfileModel.objects.create(
-                        full_name=full_name,
-                        father_name=father_name,
-                        mother_name=mother_name,
-                        village=village,
-                        subdistrict=subdistrict,
-                        district=district,
-                        ssc_board=ssc_board,
-                        ssc_year=ssc_year,
-                        ssc_result=ssc_result,
-                        registration=registration,
-                        hsc_board=hsc_board,
-                        hsc_year=hsc_year,
-                        hsc_result=hsc_result,
-                        hsc_division =hsc_division ,
-                        ssc_division =ssc_division ,
-                        
-                        
-
-                        user=request.user  # Assuming the profile is associated with the current user
-                    )
-
-                if profile_imgs:
-                    profile_imgs.profile_image = form.cleaned_data['profile_image']
-                    profile_imgs.save()    
-
-                else:
-                    profile_img = form.cleaned_data['profile_image']
-                    profile_pic = profileImage.objects.create(
-                        user = request.user,
-                        profile_image = profile_img
-                        )
-
-                    profile_pic.save()
-                
-                return redirect('profile', pk=request.user.id)
-
-                
+                profile.save()
             else:
-                # why form invalid this condition set later insha allah
-                pass
+                profile = ProfileModel.objects.create(
+                    full_name=form.cleaned_data['full_name'],
+                    father_name=form.cleaned_data['father_name'],
+                    mother_name=form.cleaned_data['mother_name'],
+                    village=form.cleaned_data['village'],
+                    subdistrict=form.cleaned_data['subdistrict'],
+                    district=form.cleaned_data['district'],
+                    ssc_board=form.cleaned_data['ssc_board'],
+                    ssc_year=form.cleaned_data['ssc_year'],
+                    ssc_result=form.cleaned_data['ssc_result'],
+                    registration=form.cleaned_data['registration'],
+                    hsc_board=form.cleaned_data['hsc_board'],
+                    hsc_year=form.cleaned_data['hsc_year'],
+                    hsc_result=form.cleaned_data['hsc_result'],
+                    hsc_division=form.cleaned_data['hsc_division'],
+                    ssc_division=form.cleaned_data['ssc_division'],
+                    user=request.user
+                )
 
-
+            if profile_imgs:
+                profile_imgs.profile_image = form.cleaned_data['profile_image']
+                profile_imgs.save()
+            else:
+                profile_img = form.cleaned_data['profile_image']
+                profile_pic = profileImage.objects.create(
+                    user=request.user,
+                    profile_image=profile_img
+                )
+                profile_pic.save()
+            
+            return redirect('profile', pk=request.user.id)
+        else:
+            # Handle invalid form
+            return render(request, 'create_profile.html', {'profile': form})
 
 class TeacherProfile(View):
     def get(self, request, *args, **kwargs):

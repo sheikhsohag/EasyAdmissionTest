@@ -44,6 +44,7 @@ class ResultSheet(models.Model):
     unit = models.CharField(max_length=100)
     obtain_mark = models.FloatField()
     roll = models.IntegerField()
+    resultDate = models.DateTimeField(null=True, blank=True)
     def __str__(self):
         return self.unit
 
@@ -60,6 +61,7 @@ class GotSubject(models.Model):
 class Admitcard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     roll = models.IntegerField()
+    
 
 class Transactions(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -74,9 +76,13 @@ class ApplyInformation(models.Model):
 
     def __str__(self):
         return f'Username {{self.user}} unit {{self.unit}}'
-
     
 
 
+class publishDate(models.Model):
+    admitcart = models.BooleanField(null=True, blank=True, default=False)
+    result = models.BooleanField(null=True, blank=True, default=False)
+    unit = models.CharField(max_length=30, null=True, blank=True)
 
-
+    def __str__(self):
+        return f'admitcard {{self.admitcart}} unit {{self.result}}'
