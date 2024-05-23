@@ -1,0 +1,82 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block css %}
+
+{% static 'css/admitcart.css' %}
+
+{% endblock css %}
+
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="card admit-card mx-auto">
+       
+            <div class="card-header text-center">
+                <img src="{% static 'images/iulogo.png' %}" alt="Islamic University, Kushtia Logo" class="logo mb-2">
+                <h1>Islamic University, Kushtia</h1>
+                <h2>Admission Admit Card</h2>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4 text-center">
+                        <img src="{{profileimage.profile_image.url}}" alt="Applicant Photo" class="photo img-thumbnail">
+                    </div>
+                    <div class="col-md-8">
+                        <p><strong>Name:</strong> <span id="studentName">{{profile.full_name}}</span></p>
+                        <p><strong>Father Name:</strong> <span id="studentName">{{profile.father_name}}</span></p>
+                        <p><strong>Roll Number:</strong> <span id="rollNumber">{{profile.roll_number}}</span></p>
+                        <p><strong>Registration Number:</strong> <span id="registrationNumber">{{reg}}</span></p>
+                        <p><strong>Course:</strong> <span id="course">Undergraduate Program</span></p>
+                    </div>
+                </div>
+                <div class="academic-info mb-4">
+                    <h3>Academic Information</h3>
+                    <p><strong>Registraion:</strong><span>{{profile.registration}}</span></p>
+                    <p><strong>SSC:</strong> <span id="sscInfo">Division: {{profile.ssc_division}}, Passing Year: {{profile.ssc_year}}, GPA {{profile.ssc_result}}, Board: {{profile.ssc_board}}</span></p>
+                    <p><strong>HSC:</strong> <span id="hscInfo">Division: {{profile.hsc_division}}, Passing Year: {{profile.hsc_year}}, GPA {{profile.hsc_result}}, Board: {{profile.hsc_board}}</span></p>
+                </div>
+                <div class="row signature-section">
+                    <div class="col-md-6 text-center">
+                        <p>_________________________</p>
+                        <p>Applicant's Signature</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <p>_________________________</p>
+                        <p>VC's Signature</p>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+    <div class="card-footer text-center">
+        <button class="btn btn-primary" onclick="downloadPDF()">Download Admit Card as PDF</button>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script>
+    function downloadPDF() {
+        const element = document.querySelector('.admit-card');
+        html2pdf(element, {
+            margin: 1,
+            filename: 'admit-card.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        });
+    }
+</script>
+
+{% endblock content %}
+
+
+

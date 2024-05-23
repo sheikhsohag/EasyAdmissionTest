@@ -180,6 +180,8 @@ class CreateProfile(View):
                     hsc_board = form.cleaned_data['hsc_board']
                     hsc_year = form.cleaned_data['hsc_year']
                     hsc_result = form.cleaned_data['hsc_result']
+                    hsc_division = form.cleaned_data['hsc_division ']
+                    ssc_division  = form.cleaned_data['ssc_division ']
 
                     
 
@@ -199,6 +201,11 @@ class CreateProfile(View):
                         hsc_board=hsc_board,
                         hsc_year=hsc_year,
                         hsc_result=hsc_result,
+                        hsc_division =hsc_division ,
+                        ssc_division =ssc_division ,
+                        
+                        
+
                         user=request.user  # Assuming the profile is associated with the current user
                     )
 
@@ -337,6 +344,8 @@ class StudentProfileUpdate(View):
         hsc_result = request.POST.get('hsc_result')
         hsc_board = request.POST.get('hsc_board')
         user = User.objects.get(pk=pk)
+        hsc_division = request.POST.get('hsc_division')
+        ssc_division = request.POST.get('ssc_division')
         student = ProfileModel.objects.filter(user=user).first()
 
         image = request.FILES.get('image')
@@ -357,6 +366,8 @@ class StudentProfileUpdate(View):
             student.hsc_year = hsc_year
             student.hsc_result = hsc_result
             student.hsc_board = hsc_board
+            student.hsc_division= hsc_division
+            student.ssc_division = ssc_division
             student.save()
         
        

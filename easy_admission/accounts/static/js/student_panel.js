@@ -14,7 +14,7 @@ function UnitSelection()
             <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/B">B-Unit Application </a></li>
             <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/Prospectus/B">B-Unit Prospectus </a></li>
             <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/B">B-Unit Notices</a></li>
-            <li class="nav-item"><a   class="border nav-link"  href="#admit-card">B Unit Admit Card</a></li>
+            <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/admitcart/">B Unit Admit Card</a></li>
             </ul>
             `
 
@@ -30,7 +30,7 @@ function UnitSelection()
                 <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/A">A-Unit Application </a></li>
                 <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Prospectus/A">A-Unit Prospectus</a></li>
                 <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/A">A-Unit Notices</a></li>
-                <li class="nav-item"><a   class="border nav-link"  href="#admit-card">A Unit Admit Card</a></li>
+                <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/admitcart/">A Unit Admit Card</a></li>
              </ul>
                 
                 `
@@ -47,7 +47,7 @@ function UnitSelection()
                     <li class="nav-item"><a   class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/C">C-Unit Application </a></li>
                     <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Prospectus/C">C-Unit Prospectus</a></li>
                     <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/C">C-Unit Notices</a></li>
-                    <li class="nav-item"><a   class="border nav-link"  href="#admit-card">C Unit Admit Card</a></li>
+                    <li class="nav-item"><a   class="border nav-link"  href="http://127.0.0.1:8000/information/admitcart/">C Unit Admit Card</a></li>
                  </ul>
                          `
                     section.innerHTML = xmlCode;
@@ -64,7 +64,7 @@ function UnitSelection()
                     <li class="nav-item"><a class="border nav-link "  href="http://127.0.0.1:8000/information/make/application/condition/D">D-Unit Application </a></li>
                     <li class="nav-item"><a class="border nav-link"  href="http://127.0.0.1:8000/information/make/Prospectus/D">D-Unit Prospectus</a></li>
                     <li class="nav-item"><a class="border nav-link"  href="http://127.0.0.1:8000/information/make/Notice/D">D-Unit Notices</a></li>
-                    <li class="nav-item"><a class="border nav-link"  href="#admit-card">D Unit Admit Card</a></li>
+                    <li class="nav-item"><a class="border nav-link"  href="http://127.0.0.1:8000/information/admitcart/">D Unit Admit Card</a></li>
                  </ul>
                     
                     `

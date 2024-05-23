@@ -5,6 +5,8 @@ from accounts.models import ProfileModel
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
+from accounts.models import ProfileModel, profileImage
+
 # Create your views here.
 
 class ApplicationCondition(View):
@@ -213,6 +215,7 @@ class Apply(View):
 
 
 class Payment(View):
+
     def get(self, request, *args, **kwargs):
         return render(request, 'payment.html')
 
@@ -238,3 +241,36 @@ class Payment(View):
             # Handle case where user is not found
             context = {"error": "User not found."}
             return render(request, 'payment.html', context)
+        
+
+class AdmitCart(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'admitCart_form.html')
+    
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        unit = request.POST.get("unit")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user:
+            apply = ApplyInformation.objects.filter(user=user).first()
+            if apply.user:
+            
+                if apply.transactions:
+                    applyInfo = ApplyInformation.objects.filter(user=user).first()
+                    profile = ProfileModel.objects.filter(user=user).first()
+                    profileimage = profileImage.objects.filter(user=user).first()
+                    # print(profile.roll_number)
+                    reg = profile.roll_number + 234
+
+                    context = {"applyInfo":applyInfo, "profile":profile, "profileimage":profileimage, "reg":reg}
+
+                    return render(request, 'admitCart.html', context)
+                else:
+                    return render(request, 'student_toggle_dashboard.html', context={"massege":"You didn't Pay Free! Try Next Admission."})
+            return render(request, 'student_toggle_dashboard.html', context={"massege":"You didn't Completed Admission Apply Proccess"})
+            
+        return render(request, 'student_toggle_dashboard.html', context={"massege":"You are not valid informations!"})
+    

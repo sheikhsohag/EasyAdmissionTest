@@ -83,6 +83,8 @@ class ProfileForm(forms.ModelForm):
         self.fields['ssc_board'].widget.attrs.update({'class': 'py-lg-2 form-control py-2 border border-dark', 'placeholder': 'SSC Board'})
         self.fields['ssc_year'].widget.attrs.update({'class': 'py-lg-2 form-control py-2 border border-dark', 'placeholder': 'SSC Passing Year'})
         self.fields['ssc_result'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'SSC Result'})
+        self.fields['ssc_division'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'SSC Divsion'})
+        self.fields['hsc_division'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Division'})
         self.fields['hsc_board'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Board'})
         self.fields['hsc_year'].widget.attrs.update({'class': 'px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Passing Year'})
         self.fields['hsc_result'].widget.attrs.update({'class': ' px-lg-3 form-control py-2 border border-dark', 'placeholder': 'HSC Result'})
