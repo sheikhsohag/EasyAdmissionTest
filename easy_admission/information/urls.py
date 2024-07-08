@@ -1,8 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import ApplicationCondition, ProspectusView, NoticesView, MakeResult, PlaceSubject,  MakeAdmid, NoticeDetail, Apply, Payment, AdmitCart, Result, admitcartDate, ResultView
-
+from .views import *
 
 urlpatterns = [
    path('make/application/condition/<str:A>/', ApplicationCondition.as_view(), name='application_condition'),
@@ -22,4 +21,5 @@ urlpatterns = [
    path('admitcart/date/', admitcartDate.as_view(), name="admitcartdate"),
 
    path('publish/result/', ResultView.as_view(), name="resultll"),
+   path('publish/meritposition/',PublishMeritPosition.as_view(), name='publish_merit_position')
 ]

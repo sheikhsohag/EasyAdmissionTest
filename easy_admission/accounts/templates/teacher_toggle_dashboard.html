@@ -13,6 +13,7 @@
 
 
 {% block content %}
+    
     <div class="container-fluid">
         <div class="row">
 
@@ -26,10 +27,10 @@
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#admitcartdate">Admit Cart Publish Date </a></li>
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#resultdate">Result Publish Date </a></li>
 
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Publish Merit Position</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#publish_merit_position">Publish Merit Position</a></li>
 
                     <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#student_subject_give">Give Student Subject</a></li>
-                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#">Subject Status</a></li>
+                    <li class="nav-item"><a  data-bs-toggle="pill" class="border m-2 nav-link"  href="#subject_status">Subject Status</a></li>
                  </ul>
             </div>
 
@@ -336,9 +337,38 @@
                          <!-- check subject status  how many set rest -->
                              <div id="subject_status" class="tab-pane fade">
                                 <div class="container">
-                                    <form action="#">
-                                        
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
+    
+                                        <label for="UnitName">Select Unit Name</label>
+    
+                                        <select id="UnitName" class="form-control mb-2" name="unit" placeholder="Unit Select" required>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>    
+                                        </select>
                                     </form>
+                                </div>
+                                
+                                <div id="subject_status_each" class="container">
+                                    <li class="list-unstyled pd-2">
+                                        <div class="row pd-2">
+                                            <div class="col-3">Subject Name:</div>
+                                            <div class="col-3">Total Set:</div>
+                                            <div class="col-3">Admited:</div>
+                                            <div class="col-3">Available:</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-unstyled pd-2">
+                                        <div class="row pd-2">
+                                            <div class="col-3">CSE</div>
+                                            <div class="col-3">50</div>
+                                            <div class="col-3">40</div>
+                                            <div class="col-3">10</div>
+                                        </div>
+                                    </li>
                                 </div>
 
                              </div>
@@ -391,6 +421,61 @@
                          </div>
 
                          <!-- admit cart pushlish date ended here  -->
+
+
+                         <!-- Publish Merit position section start from here  -->
+
+                         <div id="publish_merit_position" class="tab-pane fade">
+                            <div class="container">
+                               <form  method="post" action="{% url 'publish_merit_position' %}" enctype="multipart/form-data">
+                                   {% csrf_token %}
+                                   <div class="container">
+                                       <div class="row my-4">
+                                           <label for="UnitName">Select Unit Name</label>
+   
+                                           <select id="UnitName" class="form-control " name="unit" placeholder="Unit Select" required>
+                                               <option value="A">A</option>
+                                               <option value="B">B</option>
+                                               <option value="C">C</option>
+                                               <option value="D">D</option>    
+                                           </select>
+                                       </div>
+   
+                                       <div class="row">
+                                           <label for="notice">Range of Merit List:</label>
+                                       
+                                           <br>
+
+                                           <div class="row">
+                                            <div class="col-6">
+                                                <label for="first:">Starting Number:</label>
+                                                <input type="number" class="form-control" name="first" id="first">
+                                            </div>
+
+                                            <div class="col-6">
+                                                <label for="second">Ending Number:</label> <br>
+                                                <input type="number" class="form-control" name="second" id="second">
+                                            </div>
+                                           </div>
+                                           
+                                       </div>
+   
+
+                                   </div>
+   
+                                   <div class="row mt-4">
+                                       <div class="col text-end me-5">
+                                           <button class="btn btn-primary px-5" type="reset">Reset</button>
+                                           <button class="btn btn-primary px-5" type="submit">Submit</button>
+                                          
+                                       </div>
+   
+                                    </div>
+                               </form>
+                            </div>
+                       </div>
+
+                         <!-- Publish Merit position section ended here  -->
 
                 </div>
 

@@ -44,7 +44,7 @@ class ResultSheet(models.Model):
     unit = models.CharField(max_length=100)
     obtain_mark = models.FloatField()
     roll = models.IntegerField()
-    resultDate = models.DateTimeField(null=True, blank=True)
+    resultDate = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.unit
 
@@ -86,3 +86,23 @@ class publishDate(models.Model):
 
     def __str__(self):
         return f'admitcard {{self.admitcart}} unit {{self.result}}'
+    
+
+class MeritPosition(models.Model):
+    unit = models.CharField(max_length=5)
+    first = models.IntegerField()
+    second = models.IntegerField()
+    number = models.IntegerField(null=True, blank=True )
+    exist = models.BooleanField(default=False)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'unit {self.unit} number of merit list {self.number}'
+    
+    def save(self, *args, **kwargs):
+        max_number_instance = MeritPosition.objects.filter(unit=self.unit).order_by('-number').first()
+        if max_number_instance:
+            self.number = max_number_instance.number + 1
+        else:
+            self.number = 1
+        super().save(*args, **kwargs)

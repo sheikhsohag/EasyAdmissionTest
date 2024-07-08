@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject, ApplyInformation, publishDate
+from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotSubject, ApplyInformation, publishDate,MeritPosition
 from accounts.models import ProfileModel
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -66,7 +66,6 @@ class ProspectusView(View):
         unit = kwargs.get('A')
         prospectus = Prospectus.objects.filter(unit=unit).order_by('-uploaded_at').first()
         context = {"unitS":unit, "prospectus":prospectus}
-        print("yes pdf", prospectus.pdf_file)
         return render(request, 'prospectus_student.html',context)
     
     def post(self, request, *args, **kwargs):
@@ -359,6 +358,20 @@ class ResultView(View):
             return render(request, 'student_toggle_dashboard.html', context={"message": "Unit not found!"})
 
 
+
+
+
+class PublishMeritPosition(View):
+    def post(self, request, *args, **kwargs):
+        unit = request.POST.get('unit')
+        first = request.POST.get('first')
+        second = request.POST.get('second')
+        instance = MeritPosition.objects.create(unit=unit, first=first, second=second)
+        num = instance.number
+        context = {
+            "message": f"{unit} Unit {num} No Merit List Published!"
+        }
+        return render(request, 'teacher_toggle_dashboard.html', context)
         
         
 
