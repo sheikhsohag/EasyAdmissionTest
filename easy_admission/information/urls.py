@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from .views import *
 
+
 urlpatterns = [
    path('make/application/condition/<str:A>/', ApplicationCondition.as_view(), name='application_condition'),
    path('make/Prospectus/<str:A>/', ProspectusView.as_view(), name='prospectus'),
@@ -21,5 +22,7 @@ urlpatterns = [
    path('admitcart/date/', admitcartDate.as_view(), name="admitcartdate"),
 
    path('publish/result/', ResultView.as_view(), name="resultll"),
-   path('publish/meritposition/',PublishMeritPosition.as_view(), name='publish_merit_position')
+   path('publish/meritposition/',PublishMeritPosition.as_view(), name='publish_merit_position'),
+   path('payment/successfull/<str:trans>/<int:pk>/', views.paymentsuccessful, name='payment_successfull'),
+
 ]

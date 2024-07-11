@@ -34,6 +34,7 @@ def RegisterViews(request):
             password1 = cleaned_data['password1']
             password2 = cleaned_data['password2']
             account_types = cleaned_data['account_type']
+            print(account_types)
 
             try:
                 with transaction.atomic():

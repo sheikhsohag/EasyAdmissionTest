@@ -4,22 +4,40 @@ from . models import ApplicatinCondition, Prospectus, Notices, ResultSheet, GotS
 from accounts.models import ProfileModel
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from accounts.models import ProfileModel, profileImage
+from sslcommerz_lib import SSLCOMMERZ 
+from django.urls import reverse
+
+from django.shortcuts import render, redirect
+from django.views import View
+from sslcommerz_lib import SSLCOMMERZ
+from django.contrib.auth.models import User
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+import string, random
+def transaction_id(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 class ApplicationCondition(View):
+
+
     def get(self, request, *args, **kwargs):
-        
         unit = kwargs.get('A')
-        # print(unit)
         application = ApplicatinCondition.objects.filter(UnitName=unit).first()
-        # print("====app==",application.Taka)
-        context = {"unitS":unit, "applications":application}
+        context = {"unitS": unit, "applications": application}
         return render(request, 'application_condition.html', context)
-    
+
     def post(self, request, *args, **kwargs):
+
+        if not request.user.is_staff:
+            return redirect('teacherroom', pk=request.user.id)
+        
         if request.method == "POST":
             # Retrieve data from POST request
             unit_name = request.POST.get('UnitName')
@@ -37,9 +55,6 @@ class ApplicationCondition(View):
             tec_qua = request.POST.get('tec_qua')
 
             # Get or create the object using the retrieved data
-
-            # print("sci_sit===========================", sci_sit)
-
             application, created = ApplicatinCondition.objects.get_or_create(
                 UnitName=unit_name,
                 Taka=taka,
@@ -54,12 +69,15 @@ class ApplicationCondition(View):
                 arts_qua=arts_qua,
                 com_qua=com_qua,
                 tec_qua=tec_qua,
-                user = request.user
+                user=request.user
             )
 
             application.save()
-
+        context = {
+            "message":"Application terms and condition created successfully!"
+        }
         return redirect('teacherroom', pk=request.user.id)
+
 
 class ProspectusView(View):
     def get(self, request, *args, **kwargs):
@@ -69,6 +87,8 @@ class ProspectusView(View):
         return render(request, 'prospectus_student.html',context)
     
     def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('teacherroom', pk=request.user.id)
         if request.method == "POST":
             pdf = request.FILES['pdf']
             unit = request.POST.get('UnitName')
@@ -92,6 +112,8 @@ class NoticesView(View):
         return render(request, 'notices_student.html',context)
 
     def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('teacherroom', pk=request.user.id)
         if request.method == "POST":
             title = request.POST.get('notice_title')
             notice = request.FILES['notice_pdf']
@@ -111,6 +133,8 @@ class NoticesView(View):
 
 class MakeResult(View):
     def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('teacherroom', pk=request.user.id)
         if request.method == "POST":
             roll = request.POST.get('roll')
             obtain_mark = request.POST.get('obtain_mark')
@@ -129,6 +153,8 @@ class MakeResult(View):
 
 class PlaceSubject(View):
     def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('teacherroom', pk=request.user.id)
         if request.method == "POST":
             roll = request.POST.get('roll')
             subject = request.POST.get('subject')
@@ -213,6 +239,11 @@ class Apply(View):
             return redirect('register')
 
 
+
+
+
+
+
 class Payment(View):
 
     def get(self, request, *args, **kwargs):
@@ -222,24 +253,92 @@ class Payment(View):
         username = request.POST.get("username")
         user = User.objects.filter(username=username).first()
 
-        if user is not None:
+        if user:
             apply_info = ApplyInformation.objects.filter(user=user).first()
             if apply_info:
                 # Update the transactions field to True
                 apply_info.transactions = True
                 apply_info.save()
-
                 # Optionally, you can add a message or redirect to a success page
-                context = {"massege": "Payment processed successfully!"}
-                return render(request, 'student_toggle_dashboard.html', context)
-            else:
-                # Handle case where apply_info is not found
-                context = {"error": "Apply information not found for the user."}
-                return render(request, 'payment.html', context)
+
+        if not user:
+            return render(request, 'student_toggle_dashboard.html', {'error': 'User not found'})
+
+        transaction = transaction_id()
+
+
+        settings = { 
+            'store_id': 'parce66569259986df', 
+            'store_pass': 'parce66569259986df@ssl', 
+            'issandbox': True 
+        }
+        sslcz = SSLCOMMERZ(settings)
+        post_body = {
+            'total_amount': 100.26,
+            'currency': "BDT",
+            'tran_id': transaction,
+            'success_url': f'http://127.0.0.1:8000/information/payment/successfull/{transaction}/{user.id}/',
+            'fail_url': "",
+            'cancel_url': "",
+            'emi_option': 0,
+            'cus_name': "test",
+            'cus_email': "test@test.com",
+            'cus_phone': "01700000000",
+            'cus_add1': "customer address",
+            'cus_city': "Dhaka",
+            'cus_country': "Bangladesh",
+            'shipping_method': "NO",
+            'multi_card_name': "",
+            'num_of_item': 1,
+            'product_name': "Test",
+            'product_category': "Test Category",
+            'product_profile': "general",
+        }
+
+        response = sslcz.createSession(post_body) # API response
+
+        if response['status'] == 'SUCCESS':
+            return redirect(response['GatewayPageURL'])
         else:
-            # Handle case where user is not found
-            context = {"error": "User not found."}
+            return render(request, 'payment.html', {'error': 'Failed to create payment session'})
+
+
+
+
+
+
+@csrf_exempt
+def paymentsuccessful(request, trans, pk):
+    user = User.objects.get(id=pk)
+    
+    if user:
+        apply_info = ApplyInformation.objects.filter(user=user).first()
+        if apply_info:
+            # Update the transactions field to True
+            apply_info.transactions = True
+            apply_info.save()
+            # Optionally, you can add a message or redirect to a success page
+            context = {"massege": "Payment processed successfully!"}
+            return render(request, 'student_toggle_dashboard.html', context)
+        else:
+            # Handle case where apply_info is not found
+            context = {"error": "Apply information not found for the user."}
             return render(request, 'payment.html', context)
+    else:
+        # Handle case where user is not found
+        context = {"error": "User not found."}
+        return render(request, 'payment.html', context)
+
+
+        
+
+
+
+
+
+
+
+
         
 
 class AdmitCart(View):
@@ -255,6 +354,9 @@ class AdmitCart(View):
 
         if user:
             apply = ApplyInformation.objects.filter(user=user).first()
+            if apply is None:
+                return render(request, 'student_toggle_dashboard.html', context={"massege":"You didn't Completed Admission Apply Proccess"})
+
             if apply.user:
             
                 if apply.transactions:
